@@ -12,7 +12,7 @@ namespace Lab_MooGame
 
             bool playOn = true;
             Console.WriteLine("Enter your user name:\n");
-            string name = Console.ReadLine();
+            string? name = Console.ReadLine();
 
             while (playOn)
             {
@@ -22,7 +22,7 @@ namespace Lab_MooGame
                 Console.WriteLine("New game:\n");
                 //comment out or remove next line to play real games!
                 Console.WriteLine("For practice, number is: " + goal + "\n");
-                string guess = Console.ReadLine();
+                string? guess = Console.ReadLine();
 
                 int nGuess = 1;
                 string bbcc = checkBC(goal, guess);
@@ -41,7 +41,7 @@ namespace Lab_MooGame
                 output.Close();
                 showTopList();
                 Console.WriteLine("Correct, it took " + nGuess + " guesses\nContinue?");
-                string answer = Console.ReadLine();
+                string? answer = Console.ReadLine();
                 if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
                 {
                     playOn = false;
@@ -69,7 +69,7 @@ namespace Lab_MooGame
             return goal;
         }
 
-        static string checkBC(string goal, string guess)
+        static string checkBC(string goal, string? guess)
         {
             int cows = 0, bulls = 0;
             guess += "    "; // if player entered less than 4 chars
@@ -99,7 +99,7 @@ namespace Lab_MooGame
         {
             StreamReader input = new StreamReader("result.txt");
             List<PlayerData> results = new List<PlayerData>();
-            string line;
+            string? line;
             while ((line = input.ReadLine()) != null)
             {
                 string[] nameAndScore = line.Split(new string[] { "#&#" }, StringSplitOptions.None);
@@ -156,9 +156,9 @@ namespace Lab_MooGame
         }
 
 
-        public override bool Equals(Object p)
+        public override bool Equals(Object? p)
         {
-            return Name.Equals(((PlayerData)p).Name);
+            return Name.Equals(((PlayerData?)p!).Name);
         }
 
 
