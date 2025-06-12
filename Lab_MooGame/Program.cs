@@ -16,7 +16,7 @@ class MainClass
 
         while (continuePlaying)
         {
-            var target = makeGoal();
+            var target = GenerateTarget();
 
 
             Console.WriteLine("New game:\n");
@@ -25,21 +25,21 @@ class MainClass
             string? guess = Console.ReadLine();
 
             var numberOfGuesses = 1;
-            var result = checkBC(target, guess);
+            var result = CheckGuess(target, guess);
             Console.WriteLine(result + "\n");
             while (result != "BBBB,")
             {
                 numberOfGuesses++;
                 guess = Console.ReadLine();
                 Console.WriteLine(guess + "\n");
-                result = checkBC(target, guess);
+                result = CheckGuess(target, guess);
                 Console.WriteLine(result + "\n");
             }
 
             var streamWriter = new StreamWriter("result.txt", append: true);
             streamWriter.WriteLine(userName + "#&#" + numberOfGuesses);
             streamWriter.Close();
-            showTopList();
+            ShowScoreBoard();
             Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
             string? answer = Console.ReadLine();
             if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
@@ -49,7 +49,7 @@ class MainClass
         }
     }
 
-    static string makeGoal()
+    static string GenerateTarget()
     {
         var randomNumberGenerator = new Random();
         var target = "";
@@ -69,7 +69,7 @@ class MainClass
         return target;
     }
 
-    static string checkBC(string target, string? guess)
+    static string CheckGuess(string target, string? guess)
     {
         var numberOfCows = 0;
         var numberOfBulls = 0;
@@ -97,7 +97,7 @@ class MainClass
     }
 
 
-    static void showTopList()
+    static void ShowScoreBoard()
     {
         var streamReader = new StreamReader("result.txt");
         var results = new List<PlayerData>();
