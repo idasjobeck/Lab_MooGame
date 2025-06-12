@@ -39,10 +39,12 @@ class MainClass
             var streamWriter = new StreamWriter("result.txt", append: true);
             streamWriter.WriteLine(userName + "#&#" + numberOfGuesses);
             streamWriter.Close();
+
             ShowScoreBoard();
+
             Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
             string? answer = Console.ReadLine();
-            if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
+            if (!string.IsNullOrEmpty(answer) && answer.Substring(0, 1) == "n")
             {
                 continuePlaying = false;
             }
@@ -107,28 +109,23 @@ class MainClass
 
         while ((lineOfTextRead = streamReader.ReadLine()) != null)
         {
-            string[] nameAndScore = lineOfTextRead.Split(new string[] { "#&#" }, StringSplitOptions.None);
+            string[] nameAndScore = lineOfTextRead.Split(["#&#"], StringSplitOptions.None);
             var userName = nameAndScore[0];
             var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
             var playerData = new PlayerData(userName, numberOfGuesses);
             var position = results.IndexOf(playerData);
+
             if (position < 0)
-            {
                 results.Add(playerData);
-            }
             else
-            {
                 results[position].Update(numberOfGuesses);
-            }
-
-
         }
 
         results.Sort((player1, player2) => player1.Average().CompareTo(player2.Average()));
-        Console.WriteLine("Player   games average");
+        Console.WriteLine("Player   games  average");
         foreach (var player in results)
         {
-            Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", player.UserName, player.NumberOfGames, player.Average()));
+            Console.WriteLine($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
         }
 
         streamReader.Close();
