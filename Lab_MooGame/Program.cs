@@ -53,17 +53,17 @@ class MainClass
     {
         var randomNumberGenerator = new Random();
         var target = "";
+
         for (int i = 0; i < 4; i++)
         {
-            var randomNumber = randomNumberGenerator.Next(10);
-            string randomDigit = "" + randomNumber;
+            var randomDigit = randomNumberGenerator.Next(10).ToString();
+
             while (target.Contains(randomDigit))
             {
-                randomNumber = randomNumberGenerator.Next(10);
-                randomDigit = "" + randomNumber;
+                randomDigit = randomNumberGenerator.Next(10).ToString();
             }
 
-            target = target + randomDigit;
+            target += randomDigit;
         }
 
         return target;
@@ -93,7 +93,9 @@ class MainClass
             }
         }
 
-        return "BBBB".Substring(0, numberOfBulls) + "," + "CCCC".Substring(0, numberOfCows);
+        var result = $"{"BBBB".Substring(0, numberOfBulls)},{"CCCC".Substring(0, numberOfCows)}";
+
+        return result;
     }
 
 
