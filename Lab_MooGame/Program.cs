@@ -2,170 +2,171 @@
 using System.IO;
 using System.Collections.Generic;
 
-namespace Lab_MooGame
+namespace Lab_MooGame;
+
+class MainClass
 {
-    class MainClass
+
+    public static void Main(string[] args)
     {
 
-        public static void Main(string[] args)
+        var continuePlaying = true;
+        Console.WriteLine("Enter your user name:\n");
+        string? userName = Console.ReadLine();
+
+        while (continuePlaying)
         {
+            var target = makeGoal();
 
-            bool playOn = true;
-            Console.WriteLine("Enter your user name:\n");
-            string? name = Console.ReadLine();
 
-            while (playOn)
+            Console.WriteLine("New game:\n");
+            //comment out or remove next line to play real games!
+            Console.WriteLine("For practice, number is: " + target + "\n");
+            string? guess = Console.ReadLine();
+
+            var numberOfGuesses = 1;
+            var result = checkBC(target, guess);
+            Console.WriteLine(result + "\n");
+            while (result != "BBBB,")
             {
-                string goal = makeGoal();
-
-
-                Console.WriteLine("New game:\n");
-                //comment out or remove next line to play real games!
-                Console.WriteLine("For practice, number is: " + goal + "\n");
-                string? guess = Console.ReadLine();
-
-                int nGuess = 1;
-                string bbcc = checkBC(goal, guess);
-                Console.WriteLine(bbcc + "\n");
-                while (bbcc != "BBBB,")
-                {
-                    nGuess++;
-                    guess = Console.ReadLine();
-                    Console.WriteLine(guess + "\n");
-                    bbcc = checkBC(goal, guess);
-                    Console.WriteLine(bbcc + "\n");
-                }
-
-                StreamWriter output = new StreamWriter("result.txt", append: true);
-                output.WriteLine(name + "#&#" + nGuess);
-                output.Close();
-                showTopList();
-                Console.WriteLine("Correct, it took " + nGuess + " guesses\nContinue?");
-                string? answer = Console.ReadLine();
-                if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
-                {
-                    playOn = false;
-                }
-            }
-        }
-
-        static string makeGoal()
-        {
-            Random randomGenerator = new Random();
-            string goal = "";
-            for (int i = 0; i < 4; i++)
-            {
-                int random = randomGenerator.Next(10);
-                string randomDigit = "" + random;
-                while (goal.Contains(randomDigit))
-                {
-                    random = randomGenerator.Next(10);
-                    randomDigit = "" + random;
-                }
-
-                goal = goal + randomDigit;
+                numberOfGuesses++;
+                guess = Console.ReadLine();
+                Console.WriteLine(guess + "\n");
+                result = checkBC(target, guess);
+                Console.WriteLine(result + "\n");
             }
 
-            return goal;
+            var streamWriter = new StreamWriter("result.txt", append: true);
+            streamWriter.WriteLine(userName + "#&#" + numberOfGuesses);
+            streamWriter.Close();
+            showTopList();
+            Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
+            string? answer = Console.ReadLine();
+            if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
+            {
+                continuePlaying = false;
+            }
+        }
+    }
+
+    static string makeGoal()
+    {
+        var randomNumberGenerator = new Random();
+        var target = "";
+        for (int i = 0; i < 4; i++)
+        {
+            var randomNumber = randomNumberGenerator.Next(10);
+            string randomDigit = "" + randomNumber;
+            while (target.Contains(randomDigit))
+            {
+                randomNumber = randomNumberGenerator.Next(10);
+                randomDigit = "" + randomNumber;
+            }
+
+            target = target + randomDigit;
         }
 
-        static string checkBC(string goal, string? guess)
+        return target;
+    }
+
+    static string checkBC(string target, string? guess)
+    {
+        var numberOfCows = 0;
+        var numberOfBulls = 0;
+        guess += "    "; // if player entered less than 4 chars
+
+        for (int i = 0; i < 4; i++)
         {
-            int cows = 0, bulls = 0;
-            guess += "    "; // if player entered less than 4 chars
-            for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
             {
-                for (int j = 0; j < 4; j++)
+                if (target[i] == guess[j])
                 {
-                    if (goal[i] == guess[j])
+                    if (i == j)
                     {
-                        if (i == j)
-                        {
-                            bulls++;
-                        }
-                        else
-                        {
-                            cows++;
-                        }
+                        numberOfBulls++;
+                    }
+                    else
+                    {
+                        numberOfCows++;
                     }
                 }
             }
-
-            return "BBBB".Substring(0, bulls) + "," + "CCCC".Substring(0, cows);
         }
 
-
-        static void showTopList()
-        {
-            StreamReader input = new StreamReader("result.txt");
-            List<PlayerData> results = new List<PlayerData>();
-            string? line;
-            while ((line = input.ReadLine()) != null)
-            {
-                string[] nameAndScore = line.Split(new string[] { "#&#" }, StringSplitOptions.None);
-                string name = nameAndScore[0];
-                int guesses = Convert.ToInt32(nameAndScore[1]);
-                PlayerData pd = new PlayerData(name, guesses);
-                int pos = results.IndexOf(pd);
-                if (pos < 0)
-                {
-                    results.Add(pd);
-                }
-                else
-                {
-                    results[pos].Update(guesses);
-                }
-
-
-            }
-
-            results.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
-            Console.WriteLine("Player   games average");
-            foreach (PlayerData p in results)
-            {
-                Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", p.Name, p.NGames, p.Average()));
-            }
-
-            input.Close();
-        }
+        return "BBBB".Substring(0, numberOfBulls) + "," + "CCCC".Substring(0, numberOfCows);
     }
 
-    class PlayerData
+
+    static void showTopList()
     {
-        public string Name { get; private set; }
-        public int NGames { get; private set; }
-        int totalGuess;
+        var streamReader = new StreamReader("result.txt");
+        var results = new List<PlayerData>();
+        string? lineOfTextRead;
 
-
-        public PlayerData(string name, int guesses)
+        while ((lineOfTextRead = streamReader.ReadLine()) != null)
         {
-            this.Name = name;
-            NGames = 1;
-            totalGuess = guesses;
+            string[] nameAndScore = lineOfTextRead.Split(new string[] { "#&#" }, StringSplitOptions.None);
+            var userName = nameAndScore[0];
+            var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
+            var playerData = new PlayerData(userName, numberOfGuesses);
+            var position = results.IndexOf(playerData);
+            if (position < 0)
+            {
+                results.Add(playerData);
+            }
+            else
+            {
+                results[position].Update(numberOfGuesses);
+            }
+
+
         }
 
-        public void Update(int guesses)
+        results.Sort((player1, player2) => player1.Average().CompareTo(player2.Average()));
+        Console.WriteLine("Player   games average");
+        foreach (var player in results)
         {
-            totalGuess += guesses;
-            NGames++;
+            Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", player.UserName, player.NumberOfGames, player.Average()));
         }
 
-        public double Average()
-        {
-            return (double)totalGuess / NGames;
-        }
+        streamReader.Close();
+    }
+}
+
+class PlayerData
+{
+    public string UserName { get; private set; }
+    public int NumberOfGames { get; private set; }
+    int _totalNumberOfGuesses;
 
 
-        public override bool Equals(Object? p)
-        {
-            return Name.Equals(((PlayerData?)p!).Name);
-        }
-
-
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
+    public PlayerData(string userName, int numberOfGuesses)
+    {
+        this.UserName = userName;
+        NumberOfGames = 1;
+        _totalNumberOfGuesses = numberOfGuesses;
     }
 
+    public void Update(int numberOfGuesses)
+    {
+        _totalNumberOfGuesses += numberOfGuesses;
+        NumberOfGames++;
+    }
+
+    public double Average()
+    {
+        return (double)_totalNumberOfGuesses / NumberOfGames;
+    }
+
+
+    public override bool Equals(Object? player)
+    {
+        return UserName.Equals(((PlayerData?)player!).UserName);
+    }
+
+
+    public override int GetHashCode()
+    {
+        return UserName.GetHashCode();
+    }
 }
