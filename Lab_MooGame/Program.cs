@@ -9,31 +9,31 @@ class MainClass
 
     public static void Main(string[] args)
     {
-
+        var consoleUI = new ConsoleUI();
         var continuePlaying = true;
-        Console.WriteLine("Enter your user name:\n");
-        string? userName = Console.ReadLine();
+        consoleUI.WriteLine("Enter your user name:\n");
+        string? userName = consoleUI.ReadLine();
 
         while (continuePlaying)
         {
             var target = GenerateTarget();
 
 
-            Console.WriteLine("New game:\n");
+            consoleUI.WriteLine("New game:\n");
             //comment out or remove next line to play real games!
-            Console.WriteLine($"For practice, number is: {target} \n");
-            string? guess = Console.ReadLine();
+            consoleUI.WriteLine($"For practice, number is: {target} \n");
+            string? guess = consoleUI.ReadLine();
 
             var numberOfGuesses = 1;
             var result = CheckGuess(target, guess);
-            Console.WriteLine($"{result}\n");
+            consoleUI.WriteLine($"{result}\n");
             while (result != "BBBB,")
             {
                 numberOfGuesses++;
-                guess = Console.ReadLine();
-                Console.WriteLine($"{guess}\n");
+                guess = consoleUI.ReadLine();
+                consoleUI.WriteLine($"{guess}\n");
                 result = CheckGuess(target, guess);
-                Console.WriteLine($"{result}\n");
+                consoleUI.WriteLine($"{result}\n");
             }
 
             var streamWriter = new StreamWriter("result.txt", append: true);
@@ -42,8 +42,8 @@ class MainClass
 
             ShowScoreBoard();
 
-            Console.WriteLine($"Correct, it took {numberOfGuesses} guesses\nContinue?");
-            string? answer = Console.ReadLine();
+            consoleUI.WriteLine($"Correct, it took {numberOfGuesses} guesses\nContinue?");
+            string? answer = consoleUI.ReadLine();
             if (!string.IsNullOrEmpty(answer) && answer.Substring(0, 1) == "n")
             {
                 continuePlaying = false;
@@ -103,6 +103,7 @@ class MainClass
 
     static void ShowScoreBoard()
     {
+        var consoleUI = new ConsoleUI();
         var streamReader = new StreamReader("result.txt");
         var results = new List<PlayerData>();
         string? lineOfTextRead;
@@ -122,10 +123,10 @@ class MainClass
         }
 
         results.Sort((player1, player2) => player1.Average().CompareTo(player2.Average()));
-        Console.WriteLine("Player   games  average");
+        consoleUI.WriteLine("Player   games  average");
         foreach (var player in results)
         {
-            Console.WriteLine($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
+            consoleUI.WriteLine($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
         }
 
         streamReader.Close();
