@@ -21,28 +21,28 @@ class MainClass
 
             Console.WriteLine("New game:\n");
             //comment out or remove next line to play real games!
-            Console.WriteLine("For practice, number is: " + target + "\n");
+            Console.WriteLine($"For practice, number is: {target} \n");
             string? guess = Console.ReadLine();
 
             var numberOfGuesses = 1;
             var result = CheckGuess(target, guess);
-            Console.WriteLine(result + "\n");
+            Console.WriteLine($"{result}\n");
             while (result != "BBBB,")
             {
                 numberOfGuesses++;
                 guess = Console.ReadLine();
-                Console.WriteLine(guess + "\n");
+                Console.WriteLine($"{guess}\n");
                 result = CheckGuess(target, guess);
-                Console.WriteLine(result + "\n");
+                Console.WriteLine($"{result}\n");
             }
 
             var streamWriter = new StreamWriter("result.txt", append: true);
-            streamWriter.WriteLine(userName + "#&#" + numberOfGuesses);
+            streamWriter.WriteLine($"{userName}#&#{numberOfGuesses}");
             streamWriter.Close();
 
             ShowScoreBoard();
 
-            Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
+            Console.WriteLine($"Correct, it took {numberOfGuesses} guesses\nContinue?");
             string? answer = Console.ReadLine();
             if (!string.IsNullOrEmpty(answer) && answer.Substring(0, 1) == "n")
             {
