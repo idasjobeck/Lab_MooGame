@@ -11,31 +11,30 @@ class GameController
 
     public void Run()
     {
-        var consoleUI = new ConsoleUI();
         var continuePlaying = true;
-        consoleUI.WriteLine("Enter your user name:\n");
-        string? userName = consoleUI.ReadLine();
+        _userInterface.WriteLine("Enter your user name:\n");
+        string? userName = _userInterface.ReadLine();
 
         while (continuePlaying)
         {
             var target = GenerateTarget();
 
 
-            consoleUI.WriteLine("New game:\n");
+            _userInterface.WriteLine("New game:\n");
             //comment out or remove next line to play real games!
-            consoleUI.WriteLine($"For practice, number is: {target} \n");
-            string? guess = consoleUI.ReadLine();
+            _userInterface.WriteLine($"For practice, number is: {target} \n");
+            string? guess = _userInterface.ReadLine();
 
             var numberOfGuesses = 1;
             var result = CheckGuess(target, guess);
-            consoleUI.WriteLine($"{result}\n");
+            _userInterface.WriteLine($"{result}\n");
             while (result != "BBBB,")
             {
                 numberOfGuesses++;
-                guess = consoleUI.ReadLine();
-                consoleUI.WriteLine($"{guess}\n");
+                guess = _userInterface.ReadLine();
+                _userInterface.WriteLine($"{guess}\n");
                 result = CheckGuess(target, guess);
-                consoleUI.WriteLine($"{result}\n");
+                _userInterface.WriteLine($"{result}\n");
             }
 
             var streamWriter = new StreamWriter("result.txt", append: true);
@@ -44,8 +43,8 @@ class GameController
 
             ShowScoreBoard();
 
-            consoleUI.WriteLine($"Correct, it took {numberOfGuesses} guesses\nContinue?");
-            string? answer = consoleUI.ReadLine();
+            _userInterface.WriteLine($"Correct, it took {numberOfGuesses} guesses\nContinue?");
+            string? answer = _userInterface.ReadLine();
             if (!string.IsNullOrEmpty(answer) && answer.Substring(0, 1) == "n")
             {
                 continuePlaying = false;
@@ -53,7 +52,7 @@ class GameController
         }
     }
 
-    static string GenerateTarget()
+    private string GenerateTarget()
     {
         var randomNumberGenerator = new Random();
         var target = "";
@@ -73,7 +72,7 @@ class GameController
         return target;
     }
 
-    static string CheckGuess(string target, string? guess)
+    private string CheckGuess(string target, string? guess)
     {
         var numberOfCows = 0;
         var numberOfBulls = 0;
@@ -103,9 +102,8 @@ class GameController
     }
 
 
-    static void ShowScoreBoard()
+    private void ShowScoreBoard()
     {
-        var consoleUI = new ConsoleUI();
         var streamReader = new StreamReader("result.txt");
         var results = new List<PlayerData>();
         string? lineOfTextRead;
@@ -125,10 +123,10 @@ class GameController
         }
 
         results.Sort((player1, player2) => player1.Average().CompareTo(player2.Average()));
-        consoleUI.WriteLine("Player   games  average");
+        _userInterface.WriteLine("Player   games  average");
         foreach (var player in results)
         {
-            consoleUI.WriteLine($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
+            _userInterface.WriteLine($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
         }
 
         streamReader.Close();
