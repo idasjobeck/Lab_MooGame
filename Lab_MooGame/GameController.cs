@@ -15,10 +15,9 @@ class GameController
         _userInterface.WriteLine("Enter your user name:\n");
         string? userName = _userInterface.ReadLine();
 
-        while (continuePlaying)
+        do
         {
             var target = GenerateTarget();
-
 
             _userInterface.WriteLine("New game:\n");
             //comment out or remove next line to play real games!
@@ -49,7 +48,7 @@ class GameController
             {
                 continuePlaying = false;
             }
-        }
+        } while (continuePlaying);
     }
 
     private string GenerateTarget()
