@@ -42,13 +42,23 @@ class GameController
 
             ShowScoreBoard();
 
-            _userInterface.WriteLine($"Correct, it took {numberOfGuesses} guesses\nContinue?");
-            string? answer = _userInterface.ReadLine();
-            if (!string.IsNullOrEmpty(answer) && answer.Substring(0, 1) == "n")
-            {
-                continuePlaying = false;
-            }
+            _userInterface.WriteLine($"Correct, it took {numberOfGuesses} guesses");
+
+            continuePlaying = PromptForContinue();
+
         } while (continuePlaying);
+    }
+
+    private bool PromptForContinue()
+    {
+        do
+        {
+            _userInterface.WriteLine("Continue? (y/n)");
+            string? answer = _userInterface.ReadLine()?.ToLower();
+
+            if (answer == "y" || answer == "n")
+                return answer == "y";
+        } while (true);
     }
 
     private string GenerateTarget()
