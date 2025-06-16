@@ -6,6 +6,12 @@ class MooGame : IGuessingGame
     public string Description => "A game where you guess a 4-digit number with no repeating digits. " +
                                  "You get feedback in the form of 'B' for bulls (correct digit and position) " +
                                  "and 'C' for cows (correct digit but wrong position).";
+
+    private string _target = "";
+    public string Target => _target ?? throw new InvalidOperationException("Target is not set. Call SetUpNewGame first.");
+    private int _numberOfGuesses;
+    public int NumberOfGuesses => _numberOfGuesses;
+
     private IUserInterface _userInterface;
 
     public MooGame(IUserInterface userInterface)
@@ -13,33 +19,17 @@ class MooGame : IGuessingGame
         _userInterface = userInterface;
     }
 
-    public void PlayGame(string? userName)
+    public void WriteToScoreBoard(string? userName)
     {
-        var target = GenerateTarget();
-        _userInterface.WriteLine("New game:\n");
-        //comment out or remove next line to play real games!
-        _userInterface.WriteLine($"For practice, number is: {target} \n");
-        string? guess = _userInterface.ReadLine();
-
-        var numberOfGuesses = 1;
-        var result = CheckGuess(target, guess);
-        _userInterface.WriteLine($"{result}\n");
-        while (result != "BBBB,")
-        {
-            numberOfGuesses++;
-            guess = _userInterface.ReadLine();
-            _userInterface.WriteLine($"{guess}\n");
-            result = CheckGuess(target, guess);
-            _userInterface.WriteLine($"{result}\n");
-        }
-
         var streamWriter = new StreamWriter("result.txt", append: true);
-        streamWriter.WriteLine($"{userName}#&#{numberOfGuesses}");
+        streamWriter.WriteLine($"{userName}#&#{_numberOfGuesses}");
         streamWriter.Close();
+    }
 
-        ShowScoreBoard();
-
-        _userInterface.WriteLine($"Correct, it took {numberOfGuesses} guesses");
+    public void SetUpNewGame()
+    {
+        _target = GenerateTarget();
+        _numberOfGuesses = 0;
     }
 
     private string GenerateTarget()
@@ -62,8 +52,9 @@ class MooGame : IGuessingGame
         return target;
     }
 
-    private string CheckGuess(string target, string? guess)
+    public string CheckGuess(string? guess)
     {
+        _numberOfGuesses++;
         var numberOfCows = 0;
         var numberOfBulls = 0;
         guess += "    "; // if player entered less than 4 chars
@@ -72,7 +63,7 @@ class MooGame : IGuessingGame
         {
             for (int j = 0; j < 4; j++)
             {
-                if (target[i] == guess[j])
+                if (_target[i] == guess[j])
                 {
                     if (i == j)
                     {
@@ -91,8 +82,13 @@ class MooGame : IGuessingGame
         return result;
     }
 
+    public bool IsGuessCorrect(string resultToCheck)
+    {
+        return resultToCheck == "BBBB,";
+    }
 
-    private void ShowScoreBoard()
+
+    public void ShowScoreBoard()
     {
         var streamReader = new StreamReader("result.txt");
         var results = new List<PlayerData>();

@@ -13,16 +13,46 @@ class GameController
 
     public void Run()
     {
-        var continuePlaying = true;
         _userInterface.WriteLine("Enter your user name:\n");
         string? userName = _userInterface.ReadLine();
 
+        var continuePlaying = true;
+
         do
         {
-            _guessingGame.PlayGame(userName!);
-
+            _guessingGame.SetUpNewGame();
+            DisplayInstructions();
+            PlayGame();
+            UpdateAndDisplayScoreBoard(userName);
             continuePlaying = PromptForContinue();
         } while (continuePlaying);
+    }
+
+    private void DisplayInstructions()
+    {
+        _userInterface.WriteLine("New game:\n");
+        //comment out or remove next line to play real games!
+        _userInterface.WriteLine($"For practice, number is: {_guessingGame.Target} \n");
+    }
+
+    private void PlayGame()
+    {
+        string result;
+
+        do
+        {
+            string? guess = _userInterface.ReadLine();
+            result = _guessingGame.CheckGuess(guess);
+            _userInterface.WriteLine($"{result}\n");
+        } while (!_guessingGame.IsGuessCorrect(result));
+
+        _userInterface.WriteLine($"Correct, it took {_guessingGame.NumberOfGuesses} guesses");
+    }
+
+    private void UpdateAndDisplayScoreBoard(string? userName)
+    {
+        _guessingGame.WriteToScoreBoard(userName);
+        _guessingGame.ShowScoreBoard();
     }
 
     private bool PromptForContinue()
@@ -36,6 +66,4 @@ class GameController
                 return answer == "y";
         } while (true);
     }
-
-
 }

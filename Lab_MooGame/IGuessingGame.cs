@@ -10,16 +10,21 @@ public interface IGuessingGame
 {
     string Name { get; }
     string Description { get; }
+    public string Target { get; }
+    public int NumberOfGuesses { get; }
 
-    public void PlayGame(string userName);
+    public void SetUpNewGame();
 
     private string GenerateTarget()
     {
         return ""; // Placeholder for the actual target generation logic
     }
 
-    private string CheckGuess(string target, string? guess)
-    {
-        return ""; // Placeholder for the actual guess checking logic
-    }
+    public string CheckGuess(string? guess);
+
+    public bool IsGuessCorrect(string resultToCheck);
+
+    public void WriteToScoreBoard(string? userName);
+
+    public void ShowScoreBoard();
 }
