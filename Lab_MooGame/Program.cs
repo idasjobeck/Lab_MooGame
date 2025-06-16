@@ -9,7 +9,8 @@ class MainClass
     public static void Main(string[] args)
     {
         var ui = new ConsoleUI();
-        var gameController = new GameController(ui);
+        var mooGame = new MooGame(ui);
+        var gameController = new GameController(ui, mooGame);
 
         gameController.Run();
     }
