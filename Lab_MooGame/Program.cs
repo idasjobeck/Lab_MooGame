@@ -6,7 +6,6 @@ namespace Lab_MooGame;
 
 class MainClass
 {
-
     public static void Main(string[] args)
     {
         var ui = new ConsoleUI();
@@ -14,6 +13,4 @@ class MainClass
 
         gameController.Run();
     }
-
-    
 }

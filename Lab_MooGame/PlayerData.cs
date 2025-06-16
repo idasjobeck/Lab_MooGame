@@ -6,7 +6,6 @@ class PlayerData
     public int NumberOfGames { get; private set; }
     int _totalNumberOfGuesses;
 
-
     public PlayerData(string userName, int numberOfGuesses)
     {
         this.UserName = userName;
@@ -25,12 +24,10 @@ class PlayerData
         return (double)_totalNumberOfGuesses / NumberOfGames;
     }
 
-
     public override bool Equals(Object? player)
     {
         return UserName.Equals(((PlayerData?)player!).UserName);
     }
-
 
     public override int GetHashCode()
     {
