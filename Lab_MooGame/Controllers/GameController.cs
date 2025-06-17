@@ -9,6 +9,7 @@ class GameController
     private readonly IUserInterface _userInterface;
     private readonly IGuessingGame _guessingGame;
     private readonly ScoreboardService _scoreboardService;
+    private const bool IsPracticeMode = true; // Set to false for real games
 
     public GameController(IUserInterface userInterface, IGuessingGame guessingGame, ScoreboardService scoreboardService)
     {
@@ -34,8 +35,9 @@ class GameController
     private void DisplayInstructions()
     {
         _userInterface.WriteLine("New game:\n");
-        //comment out or remove next line to play real games!
-        _userInterface.WriteLine($"For practice, number is: {_guessingGame.Target} \n");
+        
+        if (IsPracticeMode)
+            _userInterface.WriteLine($"For practice, number is: {_guessingGame.Target} \n");
     }
 
     private void PlayGame()
