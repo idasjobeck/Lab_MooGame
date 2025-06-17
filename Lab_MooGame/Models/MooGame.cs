@@ -64,6 +64,11 @@ class MooGame : IGuessingGame
 
     public bool IsGuessCorrect(string resultToCheck)
     {
-        return resultToCheck == "BBBB,";
+        if (string.IsNullOrEmpty(resultToCheck))
+            return false;
+
+        var correctResult = $"{new string('B', _target.Length)},";
+
+        return resultToCheck == correctResult;
     }
 }
