@@ -45,27 +45,19 @@ class MooGame : IGuessingGame
         _numberOfGuesses++;
         var numberOfCows = 0;
         var numberOfBulls = 0;
-        guess += "    "; // if player entered less than 4 chars
 
-        for (int i = 0; i < 4; i++)
+        if (string.IsNullOrEmpty(guess) || guess.Length < _target.Length)
+            guess = guess!.PadRight(_target.Length);
+
+        for (int i = 0; i < _target.Length; i++)
         {
-            for (int j = 0; j < 4; j++)
-            {
-                if (_target[i] == guess[j])
-                {
-                    if (i == j)
-                    {
-                        numberOfBulls++;
-                    }
-                    else
-                    {
-                        numberOfCows++;
-                    }
-                }
-            }
+            if (_target[i] == guess[i])
+                numberOfBulls++;
+            else if (_target.Contains(guess[i]))
+                numberOfCows++;
         }
-
-        var result = $"{"BBBB".Substring(0, numberOfBulls)},{"CCCC".Substring(0, numberOfCows)}";
+        
+        var result = $"{new string('B', numberOfBulls)},{new string('C', numberOfCows)}";
 
         return result;
     }
