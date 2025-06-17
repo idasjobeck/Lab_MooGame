@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using Lab_MooGame.Controllers;
 using Lab_MooGame.Models;
+using Lab_MooGame.Services;
 using Lab_MooGame.UI;
 
 namespace Lab_MooGame;
@@ -13,7 +14,9 @@ class MainClass
     {
         var ui = new ConsoleUI();
         var mooGame = new MooGame(ui);
-        var gameController = new GameController(ui, mooGame);
+        var dataStorage = new TextFileStrategy("", "moo_highscores.txt");
+        var scoreboardService = new ScoreboardService(dataStorage);
+        var gameController = new GameController(ui, mooGame, scoreboardService);
 
         gameController.Run();
     }

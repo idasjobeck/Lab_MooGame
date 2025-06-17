@@ -1,4 +1,5 @@
 ﻿using Lab_MooGame.Models;
+using Lab_MooGame.Services;
 using Lab_MooGame.UI;
 
 namespace Lab_MooGame.Controllers;
@@ -7,11 +8,13 @@ class GameController
 {
     private readonly IUserInterface _userInterface;
     private readonly IGuessingGame _guessingGame;
+    private readonly ScoreboardService _scoreboardService;
 
-    public GameController(IUserInterface userInterface, IGuessingGame guessingGame)
+    public GameController(IUserInterface userInterface, IGuessingGame guessingGame, ScoreboardService scoreboardService)
     {
         _userInterface = userInterface;
         _guessingGame = guessingGame;
+        _scoreboardService = scoreboardService;
     }
 
     public void Run()
@@ -51,8 +54,8 @@ class GameController
 
     private void UpdateAndDisplayScoreBoard(string? userName)
     {
-        _guessingGame.WriteToScoreBoard(userName);
-        _guessingGame.ShowScoreBoard();
+        _scoreboardService.UpdateScoreBoard(userName!, _guessingGame.NumberOfGuesses);
+        DisplayScoreBoard();
     }
 
     private bool ContinuePlayingPrompt()
@@ -65,5 +68,21 @@ class GameController
             if (answer == "y" || answer == "n")
                 return answer == "y";
         } while (true);
+    }
+
+    private void DisplayScoreBoard()
+    {
+        var results = _scoreboardService.GetTopScores();
+        if (results.Count == 0)
+        {
+            _userInterface.WriteLine("No results yet.\n");
+            return;
+        }
+
+        _userInterface.WriteLine("Player   games  average");
+        foreach (var player in results)
+        {
+            _userInterface.WriteLine($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
+        }
     }
 }

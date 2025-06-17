@@ -17,8 +17,4 @@ public interface IGuessingGame
     public string CheckGuess(string? guess);
 
     public bool IsGuessCorrect(string resultToCheck);
-
-    public void WriteToScoreBoard(string? userName);
-
-    public void ShowScoreBoard();
 }
