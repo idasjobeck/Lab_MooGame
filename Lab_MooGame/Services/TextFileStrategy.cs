@@ -19,7 +19,7 @@ public class TextFileStrategy : IDataStorage
     {
         _filePath = filePath;
         _fileName = fileName;
-        _fullPath = $"{(String.IsNullOrEmpty(_filePath) ? "" : _filePath + "/")}{_fileName}";
+        _fullPath = $"{(String.IsNullOrEmpty(_filePath) ? "" : _filePath + "\\")}{_fileName}";
     }
 
     public void SaveData(string userName, int numberOfGuesses)
