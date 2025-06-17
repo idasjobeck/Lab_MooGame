@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using Lab_MooGame.Controllers;
+using Lab_MooGame.Models;
+using Lab_MooGame.UI;
 
 namespace Lab_MooGame;
 

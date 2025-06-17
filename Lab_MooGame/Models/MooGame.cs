@@ -1,4 +1,6 @@
-﻿namespace Lab_MooGame;
+﻿using Lab_MooGame.UI;
+
+namespace Lab_MooGame.Models;
 
 class MooGame : IGuessingGame
 {

@@ -1,4 +1,4 @@
-﻿namespace Lab_MooGame;
+﻿namespace Lab_MooGame.Models;
 
 class PlayerData
 {

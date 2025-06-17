@@ -1,4 +1,7 @@
-﻿namespace Lab_MooGame;
+﻿using Lab_MooGame.Models;
+using Lab_MooGame.UI;
+
+namespace Lab_MooGame.Controllers;
 
 class GameController
 {
