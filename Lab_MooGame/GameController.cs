@@ -16,16 +16,13 @@ class GameController
         _userInterface.WriteLine("Enter your user name:\n");
         string? userName = _userInterface.ReadLine();
 
-        var continuePlaying = true;
-
         do
         {
             _guessingGame.SetUpNewGame();
             DisplayInstructions();
             PlayGame();
             UpdateAndDisplayScoreBoard(userName);
-            continuePlaying = PromptForContinue();
-        } while (continuePlaying);
+        } while (ContinuePlayingPrompt());
     }
 
     private void DisplayInstructions()
@@ -55,7 +52,7 @@ class GameController
         _guessingGame.ShowScoreBoard();
     }
 
-    private bool PromptForContinue()
+    private bool ContinuePlayingPrompt()
     {
         do
         {
