@@ -14,13 +14,6 @@ class MooGame : IGuessingGame
     private int _numberOfGuesses;
     public int NumberOfGuesses => _numberOfGuesses;
 
-    private IUserInterface _userInterface;
-
-    public MooGame(IUserInterface userInterface)
-    {
-        _userInterface = userInterface;
-    }
-
     public void SetUpNewGame()
     {
         _target = GenerateTarget();

@@ -13,7 +13,7 @@ class MainClass
     public static void Main(string[] args)
     {
         var ui = new ConsoleUI();
-        var mooGame = new MooGame(ui);
+        var mooGame = new MooGame();
         var dataStorage = new TextFileStrategy("", "moo_highscores.txt");
         var scoreboardService = new ScoreboardService(dataStorage);
         var gameController = new GameController(ui, mooGame, scoreboardService);
