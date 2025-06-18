@@ -7,31 +7,26 @@ using Lab_MooGame.Models;
 
 namespace Lab_MooGame.Services;
 
-public class TextFileStrategy : IDataStorage
+public class TextFileDataStorage : IDataStorage
 {
     private string _filePath;
-    private string _fileName;
-    private string _fullPath;
     public string FilePath => _filePath;
-    public string FileName => _fileName;
 
-    public TextFileStrategy(string filePath, string fileName)
+    public TextFileDataStorage(string filePath)
     {
         _filePath = filePath;
-        _fileName = fileName;
-        _fullPath = $"{(String.IsNullOrEmpty(_filePath) ? "" : _filePath + "\\")}{_fileName}";
     }
 
     public void SaveData(string userName, int numberOfGuesses)
     {
-        var streamWriter = new StreamWriter(_fullPath, append: true);
+        var streamWriter = new StreamWriter(_filePath, append: true);
         streamWriter.WriteLine($"{userName}#&#{numberOfGuesses}");
         streamWriter.Close();
     }
 
     public List<PlayerData> GetData()
     {
-        var streamReader = new StreamReader(_fullPath);
+        var streamReader = new StreamReader(_filePath);
         var results = new List<PlayerData>();
         string? lineOfTextRead;
 
