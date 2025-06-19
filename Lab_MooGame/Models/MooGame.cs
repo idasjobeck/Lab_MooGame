@@ -46,14 +46,13 @@ class MooGame : IGuessingGame
         var numberOfCows = 0;
         var numberOfBulls = 0;
 
-        if (string.IsNullOrEmpty(guess) || guess.Length < _target.Length)
-            guess = guess!.PadRight(_target.Length);
+        guess = EnsureCorrectLength(guess);
 
         for (int i = 0; i < _target.Length; i++)
         {
-            if (_target[i] == guess[i])
+            if (IsInTargetAndCorrectPosition(i, guess!))
                 numberOfBulls++;
-            else if (_target.Contains(guess[i]))
+            else if (IsInTarget(guess![i]))
                 numberOfCows++;
         }
         
@@ -61,6 +60,20 @@ class MooGame : IGuessingGame
 
         return result;
     }
+
+    private string? EnsureCorrectLength(string? guess)
+    {
+        if (IsCorrectLength(guess!))
+            guess = guess!.PadRight(_target.Length);
+
+        return guess;
+    }
+
+    private bool IsCorrectLength(string guess) => string.IsNullOrEmpty(guess) || guess.Length < _target.Length;
+
+    private bool IsInTargetAndCorrectPosition(int position, string guess) => _target[position] == guess[position];
+
+    private bool IsInTarget(char guess) => _target.Contains(guess);
 
     public bool IsGuessCorrect(string resultToCheck)
     {
