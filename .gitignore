@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# ReportGenerator output - HTML reports for code coverage
+[Cc]overage[Rr]eport*/
