@@ -10,6 +10,7 @@ class GameController
     private readonly IGuessingGame _guessingGame;
     private readonly ScoreboardService _scoreboardService;
     private const bool IsPracticeMode = true; // Set to false for real games
+    private CurrentGameUserScore _currentGameUserScore = new();
 
     public GameController(IUserInterface userInterface, IGuessingGame guessingGame, ScoreboardService scoreboardService)
     {
@@ -21,14 +22,14 @@ class GameController
     public void Run()
     {
         _userInterface.WriteLine("Enter your user name:\n");
-        string? userName = _userInterface.ReadLine();
+        _currentGameUserScore.UserName = _userInterface.ReadLine() ?? "";
 
         do
         {
             _guessingGame.SetUpNewGame();
             DisplayInstructions();
             PlayGame();
-            UpdateAndDisplayScoreBoard(userName);
+            UpdateAndDisplayScoreBoard();
         } while (ContinuePlayingPrompt());
     }
 
@@ -51,12 +52,14 @@ class GameController
             _userInterface.WriteLine($"{result}\n");
         } while (!_guessingGame.IsGuessCorrect(result));
 
+        _currentGameUserScore.NumberOfGuesses = _guessingGame.NumberOfGuesses;
+
         _userInterface.WriteLine($"Correct, it took {_guessingGame.NumberOfGuesses} guesses");
     }
 
-    private void UpdateAndDisplayScoreBoard(string? userName)
+    private void UpdateAndDisplayScoreBoard()
     {
-        _scoreboardService.UpdateScoreBoard(userName!, _guessingGame.NumberOfGuesses);
+        _scoreboardService.UpdateScoreBoard(_currentGameUserScore);
         DisplayScoreBoard();
     }
 

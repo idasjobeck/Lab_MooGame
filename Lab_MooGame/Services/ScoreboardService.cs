@@ -16,9 +16,9 @@ public class ScoreboardService
         _dataStorage = dataStorage ?? throw new ArgumentNullException(nameof(dataStorage));
     }
 
-    public void UpdateScoreBoard(string userName, int numberOfGuesses)
+    public void UpdateScoreBoard(CurrentGameUserScore gameUserScore)
     {
-        _dataStorage.SaveData(userName, numberOfGuesses);
+        _dataStorage.SaveData(gameUserScore.UserName, gameUserScore.NumberOfGuesses);
     }
 
     public List<PlayerData> GetTopScores()
