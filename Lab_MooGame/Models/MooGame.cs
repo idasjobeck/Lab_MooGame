@@ -13,19 +13,21 @@ class MooGame : IGuessingGame
     public string Target => _target ?? throw new InvalidOperationException("Target is not set. Call SetUpNewGame first.");
     private int _numberOfGuesses;
     public int NumberOfGuesses => _numberOfGuesses;
+    private int _targetLength;
 
     public void SetUpNewGame()
     {
-        _target = GenerateTarget();
+        _targetLength = 4;
+        _target = GenerateTarget(_targetLength);
         _numberOfGuesses = 0;
     }
 
-    private string GenerateTarget()
+    private string GenerateTarget(int targetLength)
     {
         var randomNumberGenerator = new Random();
         var target = "";
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < targetLength; i++)
         {
             var randomDigit = randomNumberGenerator.Next(10).ToString();
 
