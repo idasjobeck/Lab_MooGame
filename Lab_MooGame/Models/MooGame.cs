@@ -2,7 +2,7 @@
 
 namespace Lab_MooGame.Models;
 
-class MooGame : IGuessingGame
+public class MooGame : IGuessingGame
 {
     public string Name => "Moo Game";
     public string Description => "A game where you guess a 4-digit number with no repeating digits. " +

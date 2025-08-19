@@ -4,7 +4,7 @@ using Lab_MooGame.UI;
 
 namespace Lab_MooGame.Controllers;
 
-class GameController
+public class GameController
 {
     private readonly IUserInterface _userInterface;
     private readonly IGuessingGame _guessingGame;

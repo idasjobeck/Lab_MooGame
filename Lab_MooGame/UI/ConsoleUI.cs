@@ -1,6 +1,6 @@
 ﻿namespace Lab_MooGame.UI;
 
-internal class ConsoleUI : IUserInterface
+public class ConsoleUI : IUserInterface
 {
     public void WriteLine(string message)
     {
