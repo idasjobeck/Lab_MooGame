@@ -8,7 +8,7 @@ using Lab_MooGame.UI;
 
 namespace Lab_MooGame;
 
-class MainClass
+class Program
 {
     public static void Main(string[] args)
     {
