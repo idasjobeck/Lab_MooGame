@@ -1,0 +1,29 @@
+﻿using System.Diagnostics;
+using Lab_MooGame.UI;
+
+namespace Lab_MooGame.Controllers.Tests;
+
+public class MockUI : IUserInterface
+{
+    public List<string> OutputMessages { get; } = new();
+    private List<string> _userInputs = new();
+    private int _currentInputIndex = -1;
+
+    public MockUI(string inputs)
+    {
+        _userInputs = inputs.Split(",").ToList();
+    }
+
+    public string ReadLine()
+    {
+        _currentInputIndex++;
+        return _userInputs[_currentInputIndex];
+    }
+    public void WriteLine(string message)
+    {
+        Debug.WriteLine(message);
+        OutputMessages.Add(message);
+    }
+
+    public string Output => string.Join(",", OutputMessages);
+}
