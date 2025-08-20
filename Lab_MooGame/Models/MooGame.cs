@@ -1,4 +1,5 @@
-﻿using Lab_MooGame.UI;
+﻿using Lab_MooGame.Services;
+using Lab_MooGame.UI;
 
 namespace Lab_MooGame.Models;
 
@@ -8,38 +9,21 @@ public class MooGame : IGuessingGame
     public string Description => "A game where you guess a 4-digit number with no repeating digits. " +
                                  "You get feedback in the form of 'B' for bulls (correct digit and position) " +
                                  "and 'C' for cows (correct digit but wrong position).";
-
+    private readonly ITargetGenerator _targetGenerator;
     private string _target = "";
     public string Target => _target ?? throw new InvalidOperationException("Target is not set. Call SetUpNewGame first.");
     private int _numberOfGuesses;
     public int NumberOfGuesses => _numberOfGuesses;
-    private int _targetLength;
+
+    public MooGame(ITargetGenerator targetGenerator)
+    {
+        _targetGenerator = targetGenerator ?? throw new ArgumentNullException(nameof(targetGenerator));
+    }
 
     public void SetUpNewGame()
     {
-        _targetLength = 4;
-        _target = GenerateTarget(_targetLength);
+        _target = _targetGenerator.GenerateTarget();
         _numberOfGuesses = 0;
-    }
-
-    private string GenerateTarget(int targetLength)
-    {
-        var randomNumberGenerator = new Random();
-        var target = "";
-
-        for (int i = 0; i < targetLength; i++)
-        {
-            var randomDigit = randomNumberGenerator.Next(10).ToString();
-
-            while (target.Contains(randomDigit))
-            {
-                randomDigit = randomNumberGenerator.Next(10).ToString();
-            }
-
-            target += randomDigit;
-        }
-
-        return target;
     }
 
     public string CheckGuess(string? guess)
