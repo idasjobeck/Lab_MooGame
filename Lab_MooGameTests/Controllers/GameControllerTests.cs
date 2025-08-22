@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lab_MooGameTests.Mocks;
 
 namespace Lab_MooGame.Controllers.Tests;
 

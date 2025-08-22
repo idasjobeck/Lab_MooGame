@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Lab_MooGame.UI;
 
-namespace Lab_MooGame.Controllers.Tests;
+namespace Lab_MooGameTests.Mocks;
 
 public class MockUI : IUserInterface
 {
