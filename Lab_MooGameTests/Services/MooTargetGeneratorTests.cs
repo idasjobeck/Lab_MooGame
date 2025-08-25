@@ -1,13 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Lab_MooGame.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab_MooGame.Services;
 using Lab_MooGameTests.Mocks;
 
-namespace Lab_MooGame.Services.Tests;
+namespace Lab_MooGameTests.Services;
 
 [TestClass]
 public class MooTargetGeneratorTests

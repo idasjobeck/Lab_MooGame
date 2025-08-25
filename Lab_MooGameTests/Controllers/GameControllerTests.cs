@@ -1,16 +1,9 @@
 ﻿using Lab_MooGame.Controllers;
 using Lab_MooGame.Models;
 using Lab_MooGame.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Lab_MooGameTests.Mocks;
 
-namespace Lab_MooGame.Controllers.Tests;
+namespace Lab_MooGameTests.Controllers;
 
 [TestClass]
 public class GameControllerTests
