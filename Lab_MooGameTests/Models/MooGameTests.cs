@@ -8,6 +8,17 @@ namespace Lab_MooGameTests.Models;
 [TestClass]
 public class MooGameTests
 {
+    private MockTargetGenerator _targetGenerator;
+    private MooGame _mooGame;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        _targetGenerator = new MockTargetGenerator();
+        _mooGame = new MooGame(_targetGenerator);
+        _mooGame.SetUpNewGame();
+    }
+
     [DataTestMethod]
     [TestCategory("Unit")]
     [DataRow(new int[] { 1, 2, 1, 3, 3, 4 }, "1234")]
@@ -71,12 +82,10 @@ public class MooGameTests
     public void CheckGuess_ShouldReturnResultBasedOnUserGuessWithTargetOfDefaultLength(string userGuess, string expectedResult)
     {
         // Arrange
-        var targetGenerator = new MockTargetGenerator();
-        var mooGame = new MooGame(targetGenerator);
-        mooGame.SetUpNewGame();
+        //using _mooGame from Setup()
 
         // Act
-        var actualResult = mooGame.CheckGuess(userGuess);
+        var actualResult = _mooGame.CheckGuess(userGuess);
 
         // Assert
         Assert.AreEqual(expectedResult, actualResult);
