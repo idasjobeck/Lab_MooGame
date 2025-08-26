@@ -1,4 +1,5 @@
-﻿using Lab_MooGame.Models;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Lab_MooGame.Models;
 using Lab_MooGame.Services;
 using Lab_MooGameTests.Mocks;
 
@@ -51,5 +52,63 @@ public class MooGameTests
         // Assert
         Assert.AreEqual(expectedTarget, mooGame.Target);
         Assert.AreEqual(expectedNumberOfGuesses, mooGame.NumberOfGuesses);
+    }
+
+    [DataTestMethod]
+    [TestCategory("Unit")]
+    [DataRow("1234", "BBBB,")]
+    [DataRow("4321", ",CCCC")]
+    [DataRow("5678", ",")]
+    [DataRow("1243", "BB,CC")]
+    [DataRow("2134", "BB,CC")]
+    [DataRow("1235", "BBB,")]
+    [DataRow("5674", "B,")]
+    [DataRow("5627", ",C")]
+    [DataRow("12", "BB,")]
+    [DataRow("34", ",CC")]
+    [DataRow("123456", "BBBB,")]
+    [DataRow("567812", ",")]
+    public void CheckGuess_ShouldReturnResultBasedOnUserGuessWithTargetOfDefaultLength(string userGuess, string expectedResult)
+    {
+        // Arrange
+        var targetGenerator = new MockTargetGenerator();
+        var mooGame = new MooGame(targetGenerator);
+        mooGame.SetUpNewGame();
+
+        // Act
+        var actualResult = mooGame.CheckGuess(userGuess);
+
+        // Assert
+        Assert.AreEqual(expectedResult, actualResult);
+    }
+
+    [DataTestMethod]
+    [TestCategory("Unit")]
+    [DataRow(6,"123456","BBBBBB,")]
+    [DataRow(6,"654321", ",CCCCCC")]
+    [DataRow(6,"789087", ",")]
+    [DataRow(6,"123645", "BBB,CCC")]
+    [DataRow(6,"312456", "BBB,CCC")]
+    [DataRow(6,"123478", "BBBB,")]
+    [DataRow(6,"789123", ",CCC")]
+    [DataRow(3, "123", "BBB,")]
+    [DataRow(3, "312", ",CCC")]
+    [DataRow(3, "456", ",")]
+    [DataRow(3, "132", "B,CC")]
+    [DataRow(3, "12", "BB,")]
+    [DataRow(3, "654321", ",")]
+    [DataRow(3, "123456", "BBB,")]
+    public void CheckGuess_ShouldReturnResultBasedOnUserGuessWithTargetOfSpecifiedLength(int targetLength, string userGuess, string expectedResult)
+    {
+        // Arrange
+        var targetGenerator = new MockTargetGenerator(targetLength);
+        var mooGame = new MooGame(targetGenerator);
+        mooGame.SetUpNewGame();
+
+        // Act
+        var actualResult = mooGame.CheckGuess(userGuess);
+
+        // Assert
+        Assert.AreEqual(expectedResult, actualResult);
     }
 }
