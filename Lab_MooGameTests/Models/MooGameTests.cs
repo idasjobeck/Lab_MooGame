@@ -120,4 +120,102 @@ public class MooGameTests
         // Assert
         Assert.AreEqual(expectedResult, actualResult);
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void IsGuessCorrect_ShouldReturnTrueWithTargetOfDefaultLength()
+    {
+        // Arrange
+        //using _mooGame from Setup()
+        var resultToCheck = "BBBB,";
+
+        // Act
+        var isCorrect = _mooGame.IsGuessCorrect(resultToCheck);
+
+        // Assert
+        Assert.IsTrue(isCorrect);
+    }
+
+    [DataTestMethod]
+    [TestCategory("Unit")]
+    [DataRow(",")]
+    [DataRow(",CCCC")]
+    [DataRow(",CCC")]
+    [DataRow(",CC")]
+    [DataRow(",C")]
+    [DataRow("BBB,")]
+    [DataRow("BB,")]
+    [DataRow("B,")]
+    [DataRow("BBB,C")]
+    [DataRow("BB,CC")]
+    [DataRow("B,CCC")]
+    [DataRow("B,C")]
+    [DataRow("BB,C")]
+    [DataRow("B,CC")]
+    public void IsGuessCorrect_ShouldReturnFalseWithTargetOfDefaultLength(string resultToCheck)
+    {
+        // Arrange
+        //using _mooGame from Setup()
+
+        // Act
+        var isCorrect = _mooGame.IsGuessCorrect(resultToCheck);
+
+        // Assert
+        Assert.IsFalse(isCorrect);
+    }
+
+    [DataTestMethod]
+    [TestCategory("Unit")]
+    [DataRow(6, "BBBBBB,")]
+    [DataRow(5, "BBBBB,")]
+    [DataRow(3, "BBB,")]
+    public void IsGuessCorrect_ShouldReturnTrueWithTargetOfSpecifiedLength(int targetLength, string resultToCheck)
+    {
+        // Arrange
+        var targetGenerator = new MockTargetGenerator(targetLength);
+        var mooGame = new MooGame(targetGenerator);
+        mooGame.SetUpNewGame();
+
+        // Act
+        var isCorrect = mooGame.IsGuessCorrect(resultToCheck);
+
+        // Assert
+        Assert.IsTrue(isCorrect);
+    }
+
+    [DataTestMethod]
+    [TestCategory("Unit")]
+    [DataRow(5, ",")]
+    [DataRow(5, ",CCCCC")]
+    [DataRow(5, ",CCCC")]
+    [DataRow(5, ",CCC")]
+    [DataRow(5, ",CC")]
+    [DataRow(5, ",C")]
+    [DataRow(5, "BBBB,")]
+    [DataRow(5, "BBB,")]
+    [DataRow(5, "BB,")]
+    [DataRow(5, "B,")]
+    [DataRow(5, "BBBB,C")]
+    [DataRow(5, "BBB,CC")]
+    [DataRow(5, "BB,CCC")]
+    [DataRow(5, "B,CCCC")]
+    [DataRow(5, "B,C")]
+    [DataRow(5, "BB,CC")]
+    [DataRow(5, "BB,C")]
+    [DataRow(5, "BBB,C")]
+    [DataRow(5, "B,CC")]
+    [DataRow(5, "B,CCC")]
+    public void IsGuessCorrect_ShouldReturnFalseWithTargetOfSpecifiedLength(int targetLength, string resultToCheck)
+    {
+        // Arrange
+        var targetGenerator = new MockTargetGenerator(targetLength);
+        var mooGame = new MooGame(targetGenerator);
+        mooGame.SetUpNewGame();
+
+        // Act
+        var isCorrect = mooGame.IsGuessCorrect(resultToCheck);
+
+        // Assert
+        Assert.IsFalse(isCorrect);
+    }
 }
