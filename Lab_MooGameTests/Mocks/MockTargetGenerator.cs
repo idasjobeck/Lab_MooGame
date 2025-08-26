@@ -15,9 +15,21 @@ public class MockTargetGenerator : ITargetGenerator
         RandomNumberGenerator = new SystemRandom(); // Required by interface, but not used in this mock
     }
 
+    public MockTargetGenerator(int targetLength)
+    {
+        _targetLength = targetLength;
+        RandomNumberGenerator = new SystemRandom(); // Required by interface, but not used in this mock
+    }
+
     public string GenerateTarget()
     {
-        // Return a fixed target for testing purposes
-        return "1234";
+        var target = string.Empty;
+
+        for (int i = 0; i < _targetLength; i++)
+        {
+            target += (i + 1).ToString();
+        }
+
+        return target;
     }
 }
