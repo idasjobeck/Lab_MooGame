@@ -48,8 +48,10 @@ public class GameControllerTests
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new TextFileDataStorage("test_highscores.txt"));
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
+
         // Act
         gameController.Run();
+
         // Assert
         StringAssert.Contains(userInterface.Output, "Correct");
     }
