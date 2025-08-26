@@ -14,6 +14,8 @@ public class GameControllerTests
     [DataRow("TestUser,4321,1234,n")]
     [DataRow("Ida,1234,y,1234,n")]
     [DataRow("Ida,2143,1234,y,2134,1234,n")]
+    [DataRow("Bob,12,34,1234,n")]
+    [DataRow("Bob,543216,1234,n")]
     public void Run_ShouldCompleteGameSuccessfullyWithDefaultTargetLength(string userInputs)
     {
         // Arrange
@@ -36,6 +38,8 @@ public class GameControllerTests
     [DataRow(5, "TestUser,54321,12345,n")]
     [DataRow(3, "Ida,123,y,123,n")]
     [DataRow(3, "Ida,213,123,y,134,123,n")]
+    [DataRow(6, "Bob,12,34,56,123456,n")]
+    [DataRow(5, "Bob,543216,12345,n")]
     public void Run_ShouldCompleteGameSuccessfullyWithSpecifiedTargetLength(int targetLength, string userInputs)
     {
         // Arrange
