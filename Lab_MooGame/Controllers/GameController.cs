@@ -44,10 +44,18 @@ public class GameController
     private void PlayGame()
     {
         string result;
+        string? guess;
 
         do
         {
-            string? guess = _userInterface.ReadLine();
+            do
+            {
+                guess = _userInterface.ReadLine();
+                if(!IsNumbers(guess))
+                    _userInterface.WriteLine("Invalid input, please enter numbers only.\n");
+            } while (!IsNumbers(guess));
+
+            //string? guess = _userInterface.ReadLine();
             result = _guessingGame.CheckGuess(guess);
             _userInterface.WriteLine($"{result}\n");
         } while (!_guessingGame.IsGuessCorrect(result));
@@ -75,6 +83,19 @@ public class GameController
             if (answer == "y" || answer == "n")
                 return answer == "y";
         } while (true);
+    }
+
+    private bool IsNumbers(string? userInput)
+    {
+        if (string.IsNullOrEmpty(userInput))
+            return false;
+
+        foreach (char c in userInput)
+        {
+            if (!char.IsDigit(c))
+                return false;
+        }
+        return true;
     }
 
     private void DisplayScoreBoard()
