@@ -13,7 +13,8 @@ public class Program
     public static void Main(string[] args)
     {
         var ui = new ConsoleUI();
-        var targetGenerator = new MooTargetGenerator();
+        var targetLength = 4;
+        var targetGenerator = new MooTargetGenerator(targetLength);
         var mooGame = new MooGame(targetGenerator);
         var dataStorage = new TextFileDataStorage("moo_highscores.txt");
         var scoreboardService = new ScoreboardService(dataStorage);

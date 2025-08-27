@@ -13,16 +13,10 @@ public class MooTargetGenerator : ITargetGenerator
     public int TargetLength { get; }
     public IRandom RandomNumberGenerator { get; }
 
-    public MooTargetGenerator()
+    public MooTargetGenerator(int targetLength)
     {
-        _targetLength = 4; // Default target length
+        _targetLength = targetLength;
         RandomNumberGenerator = new SystemRandom(); // Default random number generator
-    }
-
-    public MooTargetGenerator(IRandom random)
-    {
-        _targetLength = 4; // Default target length
-        RandomNumberGenerator = random;
     }
 
     public MooTargetGenerator(int targetLength, IRandom random)

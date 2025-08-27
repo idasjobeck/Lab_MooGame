@@ -9,12 +9,6 @@ public class MockTargetGenerator : ITargetGenerator
     public int TargetLength { get; }
     public IRandom RandomNumberGenerator { get; }
 
-    public MockTargetGenerator()
-    {
-        _targetLength = 4; // Fixed length for testing
-        RandomNumberGenerator = new SystemRandom(); // Required by interface, but not used in this mock
-    }
-
     public MockTargetGenerator(int targetLength)
     {
         _targetLength = targetLength;
