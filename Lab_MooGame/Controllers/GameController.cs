@@ -21,8 +21,8 @@ public class GameController
 
     public void Run()
     {
-        _userInterface.WriteLine("Enter your user name:\n");
-        _currentGameUserScore.UserName = _userInterface.ReadLine() ?? "";
+        _userInterface.Write("Enter your user name:\n");
+        _currentGameUserScore.UserName = _userInterface.Read() ?? "";
 
         do
         {
@@ -35,10 +35,10 @@ public class GameController
 
     private void DisplayInstructions()
     {
-        _userInterface.WriteLine("New game:\n");
+        _userInterface.Write("New game:\n");
         
         if (IsPracticeMode)
-            _userInterface.WriteLine($"For practice, number is: {_guessingGame.Target} \n");
+            _userInterface.Write($"For practice, number is: {_guessingGame.Target} \n");
     }
 
     private void PlayGame()
@@ -50,21 +50,20 @@ public class GameController
         {
             do
             {
-                guess = _userInterface.ReadLine();
+                guess = _userInterface.Read();
                 if(!IsNumbers(guess))
-                    _userInterface.WriteLine("Invalid input, please enter numbers only.\n");
+                    _userInterface.Write("Invalid input, please enter numbers only.\n");
             } while (!IsNumbers(guess));
 
-            //string? guess = _userInterface.ReadLine();
             result = _guessingGame.CheckGuess(guess);
-            _userInterface.WriteLine($"{result}\n");
+            _userInterface.Write($"{result}\n");
         } while (!_guessingGame.IsGuessCorrect(result));
 
         _currentGameUserScore.NumberOfGuesses = _guessingGame.NumberOfGuesses;
 
         var guessesWording = _guessingGame.NumberOfGuesses == 1 ? "guess" : "guesses";
 
-        _userInterface.WriteLine($"Correct, it took {_guessingGame.NumberOfGuesses} {guessesWording}");
+        _userInterface.Write($"Correct, it took {_guessingGame.NumberOfGuesses} {guessesWording}");
     }
 
     private void UpdateAndDisplayScoreBoard()
@@ -77,8 +76,8 @@ public class GameController
     {
         do
         {
-            _userInterface.WriteLine("Continue? (y/n)");
-            string? answer = _userInterface.ReadLine()?.ToLower();
+            _userInterface.Write("Continue? (y/n)");
+            string? answer = _userInterface.Read()?.ToLower();
 
             if (answer == "y" || answer == "n")
                 return answer == "y";
@@ -103,14 +102,14 @@ public class GameController
         var results = _scoreboardService.GetTopScores();
         if (results.Count == 0)
         {
-            _userInterface.WriteLine("No results yet.\n");
+            _userInterface.Write("No results yet.\n");
             return;
         }
 
-        _userInterface.WriteLine("Player   games  average");
+        _userInterface.Write("Player   games  average");
         foreach (var player in results)
         {
-            _userInterface.WriteLine($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
+            _userInterface.Write($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
         }
     }
 }

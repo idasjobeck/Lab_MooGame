@@ -14,12 +14,12 @@ public class MockUI : IUserInterface
         _userInputs = inputs.Split(",").ToList();
     }
 
-    public string ReadLine()
+    public string Read()
     {
         _currentInputIndex++;
         return _userInputs[_currentInputIndex];
     }
-    public void WriteLine(string message)
+    public void Write(string message)
     {
         Debug.WriteLine(message);
         OutputMessages.Add(message);

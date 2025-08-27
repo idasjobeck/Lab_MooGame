@@ -2,12 +2,12 @@
 
 public class ConsoleUI : IUserInterface
 {
-    public void WriteLine(string message)
+    public void Write(string message)
     {
         Console.WriteLine(message);
     }
 
-    public string? ReadLine()
+    public string? Read()
     {
         return Console.ReadLine();
     }
