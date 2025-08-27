@@ -22,7 +22,7 @@ public class GameControllerTests
     [DataRow(3, "Ida,213,123,y,134,123,n")]
     [DataRow(6, "Bob,12,34,56,123456,n")]
     [DataRow(5, "Bob,543216,12345,n")]
-    public void Run_ShouldCompleteGameSuccessfullyWithSpecifiedTargetLength(int targetLength, string userInputs)
+    public void Run_ShouldCompleteGameSuccessfully(int targetLength, string userInputs)
     {
         // Arrange
         var userInterface = new MockUI(userInputs);
@@ -48,7 +48,7 @@ public class GameControllerTests
     [DataRow(6, "TestUser,654321,abcd,123456,n")]
     [DataRow(6, "TestUser,abc123,123456,n")]
     [DataRow(6, "TestUser,123abc,123456,n")]
-    public void Run_ErrorMessageShouldHaveDisplayedForNonNumericalUserInputWithSpecifiedTargetLength(int targetLength, string userInputs)
+    public void Run_ErrorMessageShouldHaveDisplayedForNonNumericalUserInput(int targetLength, string userInputs)
     {
         // Arrange
         var userInterface = new MockUI(userInputs);
@@ -74,7 +74,7 @@ public class GameControllerTests
     [DataRow(6, "TestUser,654321,abcd,123456,n", 2)]
     [DataRow(6, "TestUser,456123,abc123,654321,a12b34,123456,n", 3)]
     [DataRow(6, "TestUser,123654,123abc,ab1234,142536,654321,123456,n", 4)]
-    public void Run_NonNumericalUserInputForGuessesShouldNotHaveCountedWithSpecifiedTargetLength(int targetLength, string userInputs, int expectedNumberOfGuesses)
+    public void Run_NonNumericalUserInputForGuessesShouldNotHaveCounted(int targetLength, string userInputs, int expectedNumberOfGuesses)
     {
         // Arrange
         var userInterface = new MockUI(userInputs);

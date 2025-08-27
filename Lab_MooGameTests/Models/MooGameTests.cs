@@ -18,7 +18,7 @@ public class MooGameTests
     [DataRow(6, new int[] { 7, 8, 9, 7, 6, 5, 4, 3 }, "789654")]
     [DataRow(5, new int[] { 1, 1, 2, 3, 4, 2, 5, 6 }, "12345")]
     [DataRow(3, new int[] { 7, 9, 9, 7, 6, 5, 2 }, "796")]
-    public void SetUpNewGame_ShouldSetUpNewGameWithTargetOfSpecifiedLengthAndZeroGuesses(int targetLength, IEnumerable<int> predefinedNumbers, string expectedTarget)
+    public void SetUpNewGame_ShouldSetGeneratedTargetAndSetGuessesToZero(int targetLength, IEnumerable<int> predefinedNumbers, string expectedTarget)
     {
         // Arrange
         var mockRandomNumbers = new Queue<int>(predefinedNumbers);
@@ -63,7 +63,7 @@ public class MooGameTests
     [DataRow(3, "12", "BB,")]
     [DataRow(3, "654321", ",")]
     [DataRow(3, "123456", "BBB,")]
-    public void CheckGuess_ShouldReturnResultBasedOnUserGuessWithTargetOfSpecifiedLength(int targetLength, string userGuess, string expectedResult)
+    public void CheckGuess_ShouldReturnResultBasedOnUserGuess(int targetLength, string userGuess, string expectedResult)
     {
         // Arrange
         var targetGenerator = new MockTargetGenerator(targetLength);
@@ -83,7 +83,7 @@ public class MooGameTests
     [DataRow(6, "BBBBBB,")]
     [DataRow(5, "BBBBB,")]
     [DataRow(3, "BBB,")]
-    public void IsGuessCorrect_ShouldReturnTrueWithTargetOfSpecifiedLength(int targetLength, string resultToCheck)
+    public void IsGuessCorrect_ShouldReturnTrue(int targetLength, string resultToCheck)
     {
         // Arrange
         var targetGenerator = new MockTargetGenerator(targetLength);
@@ -133,7 +133,7 @@ public class MooGameTests
     [DataRow(5, "BBB,C")]
     [DataRow(5, "B,CC")]
     [DataRow(5, "B,CCC")]
-    public void IsGuessCorrect_ShouldReturnFalseWithTargetOfSpecifiedLength(int targetLength, string resultToCheck)
+    public void IsGuessCorrect_ShouldReturnFalse(int targetLength, string resultToCheck)
     {
         // Arrange
         var targetGenerator = new MockTargetGenerator(targetLength);
