@@ -54,7 +54,9 @@ public class GameController
 
         _currentGameUserScore.NumberOfGuesses = _guessingGame.NumberOfGuesses;
 
-        _userInterface.WriteLine($"Correct, it took {_guessingGame.NumberOfGuesses} guesses");
+        var guessesWording = _guessingGame.NumberOfGuesses == 1 ? "guess" : "guesses";
+
+        _userInterface.WriteLine($"Correct, it took {_guessingGame.NumberOfGuesses} {guessesWording}");
     }
 
     private void UpdateAndDisplayScoreBoard()
