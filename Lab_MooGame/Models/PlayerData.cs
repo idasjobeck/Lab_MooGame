@@ -23,14 +23,4 @@ public class PlayerData
     {
         return (double)_totalNumberOfGuesses / NumberOfGames;
     }
-
-    public override bool Equals(Object? player)
-    {
-        return UserName.Equals(((PlayerData?)player!).UserName);
-    }
-
-    public override int GetHashCode()
-    {
-        return UserName.GetHashCode();
-    }
 }
