@@ -99,15 +99,15 @@ public class GameController
 
     private void DisplayScoreBoard()
     {
-        var results = _scoreboardService.GetTopScores();
-        if (results.Count == 0)
+        var topScores = _scoreboardService.GetTopScores();
+        if (topScores.Count == 0)
         {
             _userInterface.Write("No results yet.\n");
             return;
         }
 
         _userInterface.Write("Player   games  average");
-        foreach (var player in results)
+        foreach (var player in topScores)
         {
             _userInterface.Write($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.AverageNumberOfGuesses(),9:F2}");
         }
