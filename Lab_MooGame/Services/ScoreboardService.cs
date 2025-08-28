@@ -25,7 +25,7 @@ public class ScoreboardService
     {
         var data = _dataStorage.GetData();
         var topScores = ParseTopScoresData(data);
-        topScores.Sort((player1, player2) => player1.Average().CompareTo(player2.Average()));
+        topScores.Sort((player1, player2) => player1.AverageNumberOfGuesses().CompareTo(player2.AverageNumberOfGuesses()));
         return topScores;
     }
 

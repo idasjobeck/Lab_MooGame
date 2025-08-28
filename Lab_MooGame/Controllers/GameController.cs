@@ -109,7 +109,7 @@ public class GameController
         _userInterface.Write("Player   games  average");
         foreach (var player in results)
         {
-            _userInterface.Write($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.Average(),9:F2}");
+            _userInterface.Write($"{player.UserName,-9}{player.NumberOfGames,5:D}{player.AverageNumberOfGuesses(),9:F2}");
         }
     }
 }

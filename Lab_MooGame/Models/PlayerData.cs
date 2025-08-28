@@ -19,7 +19,7 @@ public class PlayerData
         NumberOfGames++;
     }
 
-    public double Average()
+    public double AverageNumberOfGuesses()
     {
         return (double)_totalNumberOfGuesses / NumberOfGames;
     }
