@@ -25,28 +25,19 @@ public class TextFileDataStorage : IDataStorage
         }
     }
 
-    public List<PlayerData> GetData()
+    public List<string> GetData()
     {
-        var results = new List<PlayerData>();
+        var data = new List<string>();
         string? lineOfTextRead;
 
         using (StreamReader streamReader = new StreamReader(_filePath))
         {
             while ((lineOfTextRead = streamReader.ReadLine()) != null)
             {
-                string[] nameAndScore = lineOfTextRead.Split(["#&#"], StringSplitOptions.None);
-                var userName = nameAndScore[0];
-                var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
-                var playerData = new PlayerData(userName, numberOfGuesses);
-                var position = results.IndexOf(playerData);
-
-                if (position < 0)
-                    results.Add(playerData);
-                else
-                    results[position].Update(numberOfGuesses);
+                data.Add(lineOfTextRead);
             }
         }
 
-        return results;
+        return data;
     }
 }

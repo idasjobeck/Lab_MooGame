@@ -23,8 +23,27 @@ public class ScoreboardService
 
     public List<PlayerData> GetTopScores()
     {
-        var results = _dataStorage.GetData();
-        results.Sort((player1, player2) => player1.Average().CompareTo(player2.Average()));
+        var data = _dataStorage.GetData();
+        var topScores = ParseTopScoresData(data);
+        topScores.Sort((player1, player2) => player1.Average().CompareTo(player2.Average()));
+        return topScores;
+    }
+
+    private List<PlayerData> ParseTopScoresData(List<string> data)
+    {
+        var results = new List<PlayerData>();
+        foreach (var line in data)
+        {
+            string[] nameAndScore = line.Split(["#&#"], StringSplitOptions.None);
+            var userName = nameAndScore[0];
+            var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
+            var playerData = new PlayerData(userName, numberOfGuesses);
+            var position = results.IndexOf(playerData);
+            if (position < 0)
+                results.Add(playerData);
+            else
+                results[position].Update(numberOfGuesses);
+        }
         return results;
     }
 }
