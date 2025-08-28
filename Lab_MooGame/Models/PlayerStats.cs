@@ -4,24 +4,23 @@ public class PlayerStats
 {
     public string UserName { get; private set; }
     public int NumberOfGames { get; private set; }
-    private int _totalNumberOfGuesses;
-    public int TotalNumberOfGuesses { get; }
+    public int TotalNumberOfGuesses { get; private set; }
 
     public PlayerStats(string userName, int numberOfGuesses)
     {
         UserName = userName;
         NumberOfGames = 1;
-        _totalNumberOfGuesses = numberOfGuesses;
+        TotalNumberOfGuesses = numberOfGuesses;
     }
 
     public void UpdateStats(int numberOfGuesses)
     {
-        _totalNumberOfGuesses += numberOfGuesses;
+        TotalNumberOfGuesses += numberOfGuesses;
         NumberOfGames++;
     }
 
     public double AverageNumberOfGuesses()
     {
-        return (double)_totalNumberOfGuesses / NumberOfGames;
+        return (double)TotalNumberOfGuesses / NumberOfGames;
     }
 }
