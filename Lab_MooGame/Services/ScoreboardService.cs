@@ -21,7 +21,7 @@ public class ScoreboardService
         _dataStorage.SaveData(gameUserScore.UserName, gameUserScore.NumberOfGuesses);
     }
 
-    public List<PlayerData> GetTopScores()
+    public List<PlayerStats> GetTopScores()
     {
         var data = _dataStorage.GetData();
         var topScores = ParseTopScoresData(data);
@@ -29,21 +29,21 @@ public class ScoreboardService
         return topScores;
     }
 
-    private List<PlayerData> ParseTopScoresData(List<string> data)
+    private List<PlayerStats> ParseTopScoresData(List<string> data)
     {
-        var results = new List<PlayerData>();
+        var parsedData = new List<PlayerStats>();
         foreach (var line in data)
         {
             string[] nameAndScore = line.Split(["#&#"], StringSplitOptions.None);
             var userName = nameAndScore[0];
             var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
-            var playerData = new PlayerData(userName, numberOfGuesses);
-            var position = results.IndexOf(playerData);
+            var playerStats = new PlayerStats(userName, numberOfGuesses);
+            var position = parsedData.IndexOf(playerStats);
             if (position < 0)
-                results.Add(playerData);
+                parsedData.Add(playerStats);
             else
-                results[position].Update(numberOfGuesses);
+                parsedData[position].Update(numberOfGuesses);
         }
-        return results;
+        return parsedData;
     }
 }
