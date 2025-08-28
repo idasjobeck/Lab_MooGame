@@ -42,7 +42,7 @@ public class ScoreboardService
             if (position < 0)
                 parsedData.Add(playerStats);
             else
-                parsedData[position].Update(numberOfGuesses);
+                parsedData[position].UpdateStats(numberOfGuesses);
         }
         return parsedData;
     }

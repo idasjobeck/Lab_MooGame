@@ -13,7 +13,7 @@ public class PlayerStats
         _totalNumberOfGuesses = numberOfGuesses;
     }
 
-    public void Update(int numberOfGuesses)
+    public void UpdateStats(int numberOfGuesses)
     {
         _totalNumberOfGuesses += numberOfGuesses;
         NumberOfGames++;
