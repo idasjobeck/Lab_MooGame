@@ -8,7 +8,7 @@ public class PlayerData
 
     public PlayerData(string userName, int numberOfGuesses)
     {
-        this.UserName = userName;
+        UserName = userName;
         NumberOfGames = 1;
         _totalNumberOfGuesses = numberOfGuesses;
     }
