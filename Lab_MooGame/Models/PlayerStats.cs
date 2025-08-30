@@ -1,4 +1,6 @@
-﻿namespace Lab_MooGame.Models;
+﻿using System.Xml.Linq;
+
+namespace Lab_MooGame.Models;
 
 public class PlayerStats
 {
@@ -22,5 +24,20 @@ public class PlayerStats
     public double AverageNumberOfGuesses()
     {
         return (double)TotalNumberOfGuesses / NumberOfGames;
+    }
+
+    public override bool Equals(Object? p)
+    {
+        if (p is not PlayerStats playerStats)
+            return false;
+
+        return UserName == playerStats.UserName && 
+               NumberOfGames == playerStats.NumberOfGames && 
+               TotalNumberOfGuesses == playerStats.TotalNumberOfGuesses;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(UserName, NumberOfGames, TotalNumberOfGuesses);
     }
 }

@@ -58,12 +58,6 @@ public class ScoreboardServiceTests
         var actualTopScores = scoreboardService.GetTopScores();
 
         // Assert
-        for (int i = 0; i < expectedTopScores.Count; i++)
-        {
-            Assert.AreEqual(expectedTopScores[i].UserName, actualTopScores[i].UserName);
-            Assert.AreEqual(expectedTopScores[i].NumberOfGames, actualTopScores[i].NumberOfGames);
-            Assert.AreEqual(expectedTopScores[i].TotalNumberOfGuesses, actualTopScores[i].TotalNumberOfGuesses);
-            Assert.AreEqual(expectedTopScores[i].AverageNumberOfGuesses(), actualTopScores[i].AverageNumberOfGuesses());
-        }
+        CollectionAssert.AreEqual(expectedTopScores, actualTopScores);
     }
 }
