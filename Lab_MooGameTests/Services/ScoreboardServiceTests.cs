@@ -60,4 +60,26 @@ public class ScoreboardServiceTests
         // Assert
         CollectionAssert.AreEqual(expectedTopScores, actualTopScores);
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    [ExpectedException(typeof(InvalidDataException))]
+    public void GetTopScores_ShouldThrowInvalidDataExceptionWhenNumberOfGuessesIsNotNumeric()
+    {
+        // Arrange
+        var mockData = new List<string>
+        {
+            "UserA#&#5",
+            "UserB#&#Three", // Invalid number of guesses
+            "UserC#&#2"
+        };
+
+        var dataStorage = new MockDataStorage(mockData);
+        var scoreboardService = new ScoreboardService(dataStorage);
+
+        // Act
+        var actualTopScores = scoreboardService.GetTopScores();
+
+        // Assert is handled by ExpectedException
+    }
 }
