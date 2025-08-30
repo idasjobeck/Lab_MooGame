@@ -33,17 +33,30 @@ public class ScoreboardService
     private List<PlayerStats> ParseTopScoresData(List<string> data)
     {
         var parsedData = new List<PlayerStats>();
+
         foreach (var line in data)
         {
             string[] nameAndScore = line.Split([_separator], StringSplitOptions.None);
             var userName = nameAndScore[0];
-            var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
-            var existingPlayer = parsedData.FirstOrDefault(p => p.UserName == userName);
+            var numberOfGuesses = ParseNumberOfGuesses(nameAndScore[1]);
+
+            var existingPlayer = parsedData.Find(p => p.UserName == userName);
             if (existingPlayer == null)
                 parsedData.Add(new PlayerStats(userName, numberOfGuesses));
             else
                 existingPlayer.UpdateStats(numberOfGuesses);
         }
+
         return parsedData;
+    }
+
+    private int ParseNumberOfGuesses(string numberOfGuesses)
+    {
+        var isNumber = int.TryParse(numberOfGuesses, out int result);
+
+        if (!isNumber)
+            throw new InvalidDataException("Number of guesses is not a numerical value.");
+
+        return result;
     }
 }
