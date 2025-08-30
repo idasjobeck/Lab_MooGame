@@ -14,13 +14,13 @@ public class ScoreboardServiceTests
         // Arrange
         var dataStorage = new MockDataStorage();
         var scoreboardService = new ScoreboardService(dataStorage);
-        var gameUserScore = new CurrentGameUserScore();
-        gameUserScore.UserName = "TestUser";
-        gameUserScore.NumberOfGuesses = 3;
+        var currentGameUsernameAndScore = new CurrentGameUserScore();
+        currentGameUsernameAndScore.UserName = "TestUser";
+        currentGameUsernameAndScore.NumberOfGuesses = 3;
         var expectedSavedData = new List<string> { "TestUser#&#3" };
 
         // Act
-        scoreboardService.UpdateScoreBoard(gameUserScore);
+        scoreboardService.UpdateScoreBoard(currentGameUsernameAndScore);
 
         // Assert
         CollectionAssert.AreEqual(expectedSavedData, dataStorage.GetData());

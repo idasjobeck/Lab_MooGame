@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Lab_MooGame.Models;
+using Lab_MooGame.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Lab_MooGame.Services;
 
 namespace Lab_MooGameTests.Mocks;
 
@@ -21,9 +22,9 @@ public class MockDataStorage : IDataStorage
         _dataStorage = mockData;
     }
 
-    public void SaveData(string userName, int numberOfGuesses)
+    public void SaveData(CurrentGameUserScore currentGameUsernameAndScore, string separator)
     {
-        _dataStorage.Add($"{userName}#&#{numberOfGuesses}");
+        _dataStorage.Add($"{currentGameUsernameAndScore.UserName}{separator}{currentGameUsernameAndScore.NumberOfGuesses}");
     }
 
     public List<string> GetData() => _dataStorage;

@@ -9,6 +9,6 @@ namespace Lab_MooGame.Services;
 
 public interface IDataStorage
 {
-    public void SaveData(string userName, int numberOfGuesses);
+    public void SaveData(CurrentGameUserScore currentGameUsernameAndScore, string separator);
     public List<string> GetData();
 }

@@ -17,11 +17,11 @@ public class TextFileDataStorage : IDataStorage
         _filePath = filePath;
     }
 
-    public void SaveData(string userName, int numberOfGuesses)
+    public void SaveData(CurrentGameUserScore currentGameUsernameAndScore, string separator)
     {
         using (StreamWriter streamWriter = new StreamWriter(_filePath, append: true))
         {
-            streamWriter.WriteLine($"{userName}#&#{numberOfGuesses}");
+            streamWriter.WriteLine($"{currentGameUsernameAndScore.UserName}{separator}{currentGameUsernameAndScore.NumberOfGuesses}");
         }
     }
 

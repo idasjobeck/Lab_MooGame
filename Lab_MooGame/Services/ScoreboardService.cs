@@ -10,15 +10,16 @@ namespace Lab_MooGame.Services;
 public class ScoreboardService
 {
     private readonly IDataStorage _dataStorage;
+    private readonly string _separator = "#&#";
 
     public ScoreboardService(IDataStorage dataStorage)
     {
         _dataStorage = dataStorage ?? throw new ArgumentNullException(nameof(dataStorage));
     }
 
-    public void UpdateScoreBoard(CurrentGameUserScore gameUserScore)
+    public void UpdateScoreBoard(CurrentGameUserScore currentGameUsernameAndScore)
     {
-        _dataStorage.SaveData(gameUserScore.UserName, gameUserScore.NumberOfGuesses);
+        _dataStorage.SaveData(currentGameUsernameAndScore, _separator);
     }
 
     public List<PlayerStats> GetTopScores()
@@ -34,7 +35,7 @@ public class ScoreboardService
         var parsedData = new List<PlayerStats>();
         foreach (var line in data)
         {
-            string[] nameAndScore = line.Split(["#&#"], StringSplitOptions.None);
+            string[] nameAndScore = line.Split([_separator], StringSplitOptions.None);
             var userName = nameAndScore[0];
             var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
             var existingPlayer = parsedData.FirstOrDefault(p => p.UserName == userName);
