@@ -37,12 +37,11 @@ public class ScoreboardService
             string[] nameAndScore = line.Split(["#&#"], StringSplitOptions.None);
             var userName = nameAndScore[0];
             var numberOfGuesses = Convert.ToInt32(nameAndScore[1]);
-            var playerStats = new PlayerStats(userName, numberOfGuesses);
-            var position = parsedData.IndexOf(playerStats);
-            if (position < 0)
-                parsedData.Add(playerStats);
+            var existingPlayer = parsedData.FirstOrDefault(p => p.UserName == userName);
+            if (existingPlayer == null)
+                parsedData.Add(new PlayerStats(userName, numberOfGuesses));
             else
-                parsedData[position].UpdateStats(numberOfGuesses);
+                existingPlayer.UpdateStats(numberOfGuesses);
         }
         return parsedData;
     }
