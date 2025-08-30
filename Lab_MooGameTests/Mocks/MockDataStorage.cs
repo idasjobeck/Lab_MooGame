@@ -9,7 +9,17 @@ namespace Lab_MooGameTests.Mocks;
 
 public class MockDataStorage : IDataStorage
 {
-    private List<string> _dataStorage = new List<string>();
+    private List<string> _dataStorage;
+
+    public MockDataStorage()
+    {
+        _dataStorage = new List<string>();
+    }
+
+    public MockDataStorage(List<string> mockData)
+    {
+        _dataStorage = mockData;
+    }
 
     public void SaveData(string userName, int numberOfGuesses)
     {
