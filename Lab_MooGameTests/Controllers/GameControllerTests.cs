@@ -16,6 +16,7 @@ public class GameControllerTests
     [DataRow(4, "Ida,2143,1234,y,2134,1234,n")]
     [DataRow(4, "Bob,12,34,1234,n")]
     [DataRow(4, "Bob,543216,1234,n")]
+    [DataRow(4, "Bob,4321,1234,b,n")]
     [DataRow(6, "TestUser,123456,n")]
     [DataRow(5, "TestUser,54321,12345,n")]
     [DataRow(3, "Ida,123,y,123,n")]
