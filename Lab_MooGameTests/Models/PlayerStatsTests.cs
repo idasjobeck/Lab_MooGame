@@ -1,4 +1,6 @@
-﻿using Lab_MooGame.Models;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Lab_MooGame.Models;
+using Lab_MooGameTests.Mocks;
 
 namespace Lab_MooGameTests.Models;
 
@@ -60,5 +62,33 @@ public class PlayerStatsTests
 
         // Assert
         Assert.AreEqual(expectedAverage, actualAverage);
+    }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Equals_ShouldReturnFalseAsPlayerStatsObjectsAreNotEqual()
+    {
+        // Arrange
+        var differentPlayerStats = new PlayerStats("DifferentUser", 3);
+
+        // Act
+        var areEqual = _playerStats!.Equals(differentPlayerStats);
+
+        // Assert
+        Assert.IsFalse(areEqual);
+    }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Equals_ShouldReturnFalseAsOneObjectIsNotPlayerStats()
+    {
+        // Arrange
+        var notAPlayerStats = new MockTargetGenerator(4);
+
+        // Act
+        var areEqual = _playerStats!.Equals(notAPlayerStats);
+
+        // Assert
+        Assert.IsFalse(areEqual);
     }
 }
