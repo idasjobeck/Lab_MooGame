@@ -91,4 +91,25 @@ public class GameControllerTests
         // Assert
         Assert.AreEqual(expectedNumberOfGuesses, guessingGame.NumberOfGuesses);
     }
+
+    [DataTestMethod]
+    [TestCategory("Unit")]
+    [DataRow(4, "TestUser,1234,n")]
+    [DataRow(4, "Ida,1234,y,1234,n")]
+    public void Run_ShouldThrowExceptionWhenTwoRunsAreAccessingHighscoresFileSimultaneously(int targetLength, string userInputs)
+    {
+        // Arrange
+        var userInterface = new MockUI(userInputs);
+        var targetGenerator = new MockTargetGenerator(targetLength);
+        var guessingGame = new MooGame(targetGenerator);
+        var scoreboardService = new ScoreboardService(new TextFileDataStorage("test_highscores.txt"));
+        var gameController = new GameController(userInterface, guessingGame, scoreboardService);
+
+        using (StreamReader fileLock = new StreamReader("test_highscores.txt"))
+        {
+            // The file is now locked for reading, simulating another process accessing it.
+            // Act & Assert
+            Assert.ThrowsException<IOException>(() => gameController.Run());
+        }
+    }
 }
