@@ -17,6 +17,7 @@ public class MockUI : IUserInterface
     public string Read()
     {
         _currentInputIndex++;
+        Debug.WriteLine($"<User input: {_userInputs[_currentInputIndex]}>");
         return _userInputs[_currentInputIndex];
     }
     public void Write(string message)
