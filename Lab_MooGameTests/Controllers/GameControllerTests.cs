@@ -41,6 +41,7 @@ public class GameControllerTests
 
     [DataTestMethod]
     [TestCategory("Unit")]
+    [DataRow(4, "TestUser,,1234,n")]
     [DataRow(4, "TestUser,abcd,1234,n")]
     [DataRow(4, "TestUser,4321,abcd,1234,n")]
     [DataRow(4, "TestUser,ab12,1234,n")]
