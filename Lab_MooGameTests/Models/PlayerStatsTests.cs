@@ -105,4 +105,19 @@ public class PlayerStatsTests
         // Assert
         Assert.IsTrue(areEqual);
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void GetHashCode_ShouldReturnHashCodeBasedOnPlayerStatsObject()
+    {
+        // Arrange
+        var samePlayerStats = new PlayerStats("TestUser", 3);
+        var expectedHashCode = samePlayerStats.GetHashCode();
+
+        // Act
+        var actualHashCode = _playerStats!.GetHashCode();
+
+        // Assert
+        Assert.AreEqual(expectedHashCode, actualHashCode);
+    }
 }
