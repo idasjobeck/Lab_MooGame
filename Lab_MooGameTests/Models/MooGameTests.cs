@@ -168,4 +168,38 @@ public class MooGameTests
         // Act & Assert
         Assert.ThrowsException<InvalidOperationException>(() => { var target = mooGame.Target; });
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Name_ShouldGetName()
+    {
+        // Arrange
+        var targetGenerator = new MockTargetGenerator(4);
+        var mooGame = new MooGame(targetGenerator);
+        var expectedName = "Moo Game";
+
+        // Act
+        var actualName = mooGame.Name;
+
+        // Assert
+        Assert.AreEqual(expectedName, actualName);
+    }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Description_ShouldGetDescription()
+    {
+        // Arrange
+        var targetGenerator = new MockTargetGenerator(4);
+        var mooGame = new MooGame(targetGenerator);
+        var expectedDescription = "A game where you guess a 4-digit number with no repeating digits. " +
+                                  "You get feedback in the form of 'B' for bulls (correct digit and position) " +
+                                  "and 'C' for cows (correct digit but wrong position).";
+
+        // Act
+        var actualDescription = mooGame.Description;
+
+        // Assert
+        Assert.AreEqual(expectedDescription, actualDescription);
+    }
 }
