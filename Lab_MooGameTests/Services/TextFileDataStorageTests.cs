@@ -46,5 +46,20 @@ namespace Lab_MooGameTests.Services
             // Assert
             CollectionAssert.AreEqual(expectedData, actualData);
         }
+
+        [TestMethod]
+        [TestCategory("Unit")]
+        public void FilePath_ShouldGetFilePath()
+        {
+            // Arrange
+            var textFileDataStorage = new TextFileDataStorage(_mockFileSystem, "testfile.txt");
+            var expectedFilePath = "testfile.txt";
+
+            // Act
+            var actualFilePath = textFileDataStorage.FilePath;
+
+            // Assert
+            Assert.AreEqual(expectedFilePath, actualFilePath);
+        }
     }
 }
