@@ -63,23 +63,20 @@ public class ScoreboardServiceTests
 
     [TestMethod]
     [TestCategory("Unit")]
-    [ExpectedException(typeof(InvalidDataException))]
     public void GetTopScores_ShouldThrowInvalidDataExceptionWhenNumberOfGuessesIsNotNumeric()
     {
         // Arrange
         var mockData = new List<string>
         {
             "UserA#&#5",
-            "UserB#&#Three", // Invalid number of guesses
+            "UserB#&#Three",
             "UserC#&#2"
         };
 
         var dataStorage = new MockDataStorage(mockData);
         var scoreboardService = new ScoreboardService(dataStorage);
 
-        // Act
-        var actualTopScores = scoreboardService.GetTopScores();
-
-        // Assert is handled by ExpectedException
+        // Act and Assert
+        Assert.ThrowsException<InvalidDataException>(() => scoreboardService.GetTopScores());
     }
 }

@@ -54,7 +54,6 @@ public class GameControllerTests
         var userInterface = new MockUI(userInputs);
         var targetGenerator = new MockTargetGenerator(targetLength);
         var guessingGame = new MooGame(targetGenerator);
-        //var scoreboardService = new ScoreboardService(new TextFileDataStorage("test_highscores.txt"));
         var scoreboardService = new ScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
 
@@ -81,7 +80,6 @@ public class GameControllerTests
         var userInterface = new MockUI(userInputs);
         var targetGenerator = new MockTargetGenerator(targetLength);
         var guessingGame = new MooGame(targetGenerator);
-        //var scoreboardService = new ScoreboardService(new TextFileDataStorage("test_highscores.txt"));
         var scoreboardService = new ScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
 

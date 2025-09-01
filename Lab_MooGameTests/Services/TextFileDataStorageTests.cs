@@ -31,7 +31,7 @@ namespace Lab_MooGameTests.Services
         }
 
         [TestMethod]
-        [TestCategory("NotImplemented")]
+        [TestCategory("Unit")]
         public void GetData_ShouldGetDataFromFile()
         {
             // Arrange
