@@ -100,6 +100,8 @@ public class MooGameTests
     [DataTestMethod]
     [TestCategory("Unit")]
     [DataRow(4, ",")]
+    [DataRow(4, null)]
+    [DataRow(4, "")]
     [DataRow(4, ",CCCC")]
     [DataRow(4, ",CCC")]
     [DataRow(4, ",CC")]
