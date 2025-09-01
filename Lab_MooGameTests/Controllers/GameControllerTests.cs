@@ -112,4 +112,22 @@ public class GameControllerTests
             Assert.ThrowsException<IOException>(() => gameController.Run());
         }
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Run_ShouldDisplayErrorMessageIfTopScoresIsEmpty()
+    {
+        // Arrange
+        var userInterface = new MockUI("TestUser,1234,n");
+        var targetGenerator = new MockTargetGenerator(4);
+        var guessingGame = new MooGame(targetGenerator);
+        var scoreboardService = new MockScoreboardService(new MockDataStorage());
+        var gameController = new GameController(userInterface, guessingGame, scoreboardService);
+
+        // Act
+        gameController.Run();
+
+        // Assert
+        StringAssert.Contains(userInterface.Output, "No results yet.");
+    }
 }

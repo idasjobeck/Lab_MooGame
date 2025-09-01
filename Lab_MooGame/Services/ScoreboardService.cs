@@ -7,7 +7,7 @@ using Lab_MooGame.Models;
 
 namespace Lab_MooGame.Services;
 
-public class ScoreboardService
+public class ScoreboardService : IScoreboard
 {
     private readonly IDataStorage _dataStorage;
     private readonly string _separator = "#&#";

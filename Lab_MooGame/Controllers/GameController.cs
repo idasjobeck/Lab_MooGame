@@ -8,11 +8,11 @@ public class GameController
 {
     private readonly IUserInterface _userInterface;
     private readonly IGuessingGame _guessingGame;
-    private readonly ScoreboardService _scoreboardService;
+    private readonly IScoreboard _scoreboardService;
     private const bool IsPracticeMode = true; // Set to false for real games
     private CurrentGameUserScore _currentGameUserScore = new();
 
-    public GameController(IUserInterface userInterface, IGuessingGame guessingGame, ScoreboardService scoreboardService)
+    public GameController(IUserInterface userInterface, IGuessingGame guessingGame, IScoreboard scoreboardService)
     {
         _userInterface = userInterface;
         _guessingGame = guessingGame;
