@@ -79,4 +79,12 @@ public class ScoreboardServiceTests
         // Act and Assert
         Assert.ThrowsException<InvalidDataException>(() => scoreboardService.GetTopScores());
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void ScoreboardService_ShouldThrowArgumentNullException()
+    {
+        // Arrange, Act, and Assert
+        Assert.ThrowsException<ArgumentNullException>(() => new ScoreboardService(null!));
+    }
 }
