@@ -148,4 +148,12 @@ public class MooGameTests
         // Assert
         Assert.IsFalse(isCorrect);
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void MooGame_ShouldThrowArgumentNullException()
+    {
+        // Arrange, Act, and Assert
+        Assert.ThrowsException<ArgumentNullException>(() => new MooGame(null!));
+    }
 }
