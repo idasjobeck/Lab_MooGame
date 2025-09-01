@@ -91,4 +91,18 @@ public class PlayerStatsTests
         // Assert
         Assert.IsFalse(areEqual);
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Equals_ShouldReturnTrueAsPlayerStatsObjectsAreEqual()
+    {
+        // Arrange
+        var samePlayerStats = new PlayerStats("TestUser", 3);
+        
+        // Act
+        var areEqual = _playerStats!.Equals(samePlayerStats);
+        
+        // Assert
+        Assert.IsTrue(areEqual);
+    }
 }
