@@ -10,19 +10,20 @@ namespace Lab_MooGame.Services;
 public class MooTargetGenerator : ITargetGenerator
 {
     private readonly int _targetLength;
-    public int TargetLength { get; }
-    public IRandom RandomNumberGenerator { get; }
+    private readonly IRandom _randomNumberGenerator;
+    public int TargetLength => _targetLength;
+    public IRandom RandomNumberGenerator => _randomNumberGenerator;
 
     public MooTargetGenerator(int targetLength)
     {
         _targetLength = targetLength;
-        RandomNumberGenerator = new SystemRandom(); // Default random number generator
+        _randomNumberGenerator = new SystemRandom(); // Default random number generator
     }
 
     public MooTargetGenerator(int targetLength, IRandom random)
     {
         _targetLength = targetLength;
-        RandomNumberGenerator = random;
+        _randomNumberGenerator = random;
     }
 
     public string GenerateTarget()

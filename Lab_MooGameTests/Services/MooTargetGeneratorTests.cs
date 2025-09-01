@@ -29,4 +29,19 @@ public class MooTargetGeneratorTests
         // Assert
         Assert.AreEqual(expectedTarget, actualTarget);
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void TargetLength_ShouldGetTargetLengthSet()
+    {
+        // Arrange
+        var expectedTargetLength = 5;
+        var targetGenerator = new MooTargetGenerator(expectedTargetLength);
+
+        // Act
+        var actualTargetLength = targetGenerator.TargetLength;
+
+        // Assert
+        Assert.AreEqual(expectedTargetLength, actualTargetLength);
+    }
 }
