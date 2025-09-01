@@ -11,7 +11,7 @@ public class MooGame : IGuessingGame
                                  "and 'C' for cows (correct digit but wrong position).";
     private readonly ITargetGenerator _targetGenerator;
     private string _target = "";
-    public string Target => _target ?? throw new InvalidOperationException("Target is not set. Call SetUpNewGame first.");
+    public string Target => _target == "" ? throw new InvalidOperationException("Target is not set. Call SetUpNewGame first.") : _target;
     private int _numberOfGuesses;
     public int NumberOfGuesses => _numberOfGuesses;
 

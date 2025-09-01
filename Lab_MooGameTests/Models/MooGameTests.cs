@@ -156,4 +156,16 @@ public class MooGameTests
         // Arrange, Act, and Assert
         Assert.ThrowsException<ArgumentNullException>(() => new MooGame(null!));
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Target_ShouldThrowInvalidOperationExceptionIfGameNotSetUp()
+    {
+        // Arrange
+        var targetGenerator = new MockTargetGenerator(4);
+        var mooGame = new MooGame(targetGenerator);
+
+        // Act & Assert
+        Assert.ThrowsException<InvalidOperationException>(() => { var target = mooGame.Target; });
+    }
 }
