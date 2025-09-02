@@ -10,20 +10,24 @@ public class MooGameTests
 {
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, new int[] { 1, 2, 1, 3, 3, 4 }, "1234")]
-    [DataRow(4, new int[] { 4, 5, 6, 4, 7, 8 }, "4567")]
-    [DataRow(4, new int[] { 1, 1, 1, 2, 3, 4 }, "1234")]
-    [DataRow(4, new int[] { 9, 8, 7, 6, 5, 4 }, "9876")]
-    [DataRow(6, new int[] { 1, 2, 1, 3, 4, 4, 5, 6 }, "123456")]
-    [DataRow(6, new int[] { 7, 8, 9, 7, 6, 5, 4, 3 }, "789654")]
-    [DataRow(5, new int[] { 1, 1, 2, 3, 4, 2, 5, 6 }, "12345")]
-    [DataRow(3, new int[] { 7, 9, 9, 7, 6, 5, 2 }, "796")]
-    public void SetUpNewGame_ShouldSetGeneratedTargetAndSetGuessesToZero(int targetLength, IEnumerable<int> predefinedNumbers, string expectedTarget)
+    [DataRow(4, 9, false, new int[] { 1, 2, 1, 3, 3, 4 }, "1234")]
+    [DataRow(4, 9, false, new int[] { 4, 5, 6, 4, 7, 8 }, "4567")]
+    [DataRow(4, 9, false, new int[] { 1, 1, 1, 2, 3, 4 }, "1234")]
+    [DataRow(4, 9, false, new int[] { 9, 8, 7, 6, 5, 4 }, "9876")]
+    [DataRow(6, 9, false, new int[] { 1, 2, 1, 3, 4, 4, 5, 6 }, "123456")]
+    [DataRow(6, 9, false, new int[] { 7, 8, 9, 7, 6, 5, 4, 3 }, "789654")]
+    [DataRow(5, 9, false, new int[] { 1, 1, 2, 3, 4, 2, 5, 6 }, "12345")]
+    [DataRow(3, 9, false, new int[] { 7, 9, 9, 7, 6, 5, 2 }, "796")]
+    [DataRow(4, 6, true, new int[] { 1, 2, 1, 3 }, "1213")]
+    [DataRow(4, 6, true, new int[] { 4, 5, 6, 4 }, "4564")]
+    [DataRow(4, 6, true, new int[] { 1, 1, 1, 2 }, "1112")]
+    [DataRow(4, 6, true, new int[] { 1, 2, 3, 4 }, "1234")]
+    public void SetUpNewGame_ShouldSetGeneratedTargetAndSetGuessesToZero(int targetLength, int maxRange, bool allowRepeats, IEnumerable<int> predefinedNumbers, string expectedTarget)
     {
         // Arrange
         var mockRandomNumbers = new Queue<int>(predefinedNumbers);
         var mockRandomNumberGenerator = new MockRandom(mockRandomNumbers);
-        var targetGenerator = new MooTargetGenerator(targetLength, mockRandomNumberGenerator);
+        var targetGenerator = new TargetGenerator(targetLength, maxRange, allowRepeats, mockRandomNumberGenerator);
         var mooGame = new MooGame(targetGenerator);
         var expectedNumberOfGuesses = 0;
 

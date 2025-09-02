@@ -7,6 +7,10 @@ public class MockTargetGenerator : ITargetGenerator
 {
     private readonly int _targetLength;
     public int TargetLength { get; }
+    private readonly int _maxRange;
+    public int MaxRange => _maxRange;
+    private readonly bool _allowRepeats;
+    public bool AllowRepeats => _allowRepeats;
     public IRandom RandomNumberGenerator { get; }
 
     public MockTargetGenerator(int targetLength)

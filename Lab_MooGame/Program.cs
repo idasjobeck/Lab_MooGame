@@ -14,7 +14,9 @@ public class Program
     {
         var ui = new ConsoleUI();
         var targetLength = 4;
-        var targetGenerator = new MooTargetGenerator(targetLength);
+        var maxRange = 9;
+        var allowRepeats = false;
+        var targetGenerator = new TargetGenerator(targetLength, maxRange, allowRepeats);
         var mooGame = new MooGame(targetGenerator);
         var dataStorage = new TextFileDataStorage("moo_highscores.txt");
         var scoreboardService = new ScoreboardService(dataStorage);

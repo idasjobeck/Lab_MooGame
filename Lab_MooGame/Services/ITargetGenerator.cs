@@ -10,6 +10,8 @@ namespace Lab_MooGame.Services;
 public interface ITargetGenerator
 {
     public int TargetLength { get; }
+    public int MaxRange { get; }
+    public bool AllowRepeats { get; }
 
     public string GenerateTarget();
 }
