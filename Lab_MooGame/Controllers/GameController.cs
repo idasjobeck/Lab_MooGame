@@ -21,8 +21,7 @@ public class GameController
 
     public void Run()
     {
-        _userInterface.Write("Enter your user name:\n");
-        _currentGameUserScore.UserName = _userInterface.Read() ?? "";
+        RequestUsername();
 
         do
         {
@@ -31,6 +30,19 @@ public class GameController
             PlayGame();
             UpdateAndDisplayScoreBoard();
         } while (ContinuePlayingPrompt());
+    }
+
+    private void RequestUsername()
+    {
+        string? userName;
+
+        do
+        {
+            _userInterface.Write("Enter your user name:\n");
+            userName = _userInterface.Read();
+        } while (string.IsNullOrEmpty(userName));
+
+        _currentGameUserScore.UserName = userName;
     }
 
     private void DisplayInstructions()

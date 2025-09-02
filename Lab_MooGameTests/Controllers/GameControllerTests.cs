@@ -17,6 +17,7 @@ public class GameControllerTests
     [DataRow(4, "Bob,12,34,1234,n")]
     [DataRow(4, "Bob,543216,1234,n")]
     [DataRow(4, "Bob,4321,1234,b,n")]
+    [DataRow(4,",TestUser2,1234,n")]
     [DataRow(6, "TestUser,123456,n")]
     [DataRow(5, "TestUser,54321,12345,n")]
     [DataRow(3, "Ida,123,y,123,n")]
@@ -37,6 +38,33 @@ public class GameControllerTests
 
         // Assert
         StringAssert.Contains(userInterface.Output, "Correct");
+    }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Run_UsernameShouldHaveBeenRequestedMultipleTimes()
+    {
+        // Arrange
+        var userInterface = new MockUI(",TestUser2,1234,n");
+        var targetLength = 4;
+        var targetGenerator = new MockTargetGenerator(targetLength);
+        var guessingGame = new MooGame(targetGenerator);
+        var scoreboardService = new ScoreboardService(new MockDataStorage());
+        var gameController = new GameController(userInterface, guessingGame, scoreboardService);
+        var substring = "Enter your user name:\n";
+        var expectedOccurrences = 2;
+
+        // Act
+        gameController.Run();
+
+        // Assert
+        if (string.IsNullOrEmpty(substring) || userInterface.Output.Length < substring.Length)
+            Assert.Fail();
+        
+        var actualOccurrences = userInterface.Output.Select((_, i) => userInterface.Output.Substring(i))
+            .Count(s => s.StartsWith(substring, StringComparison.Ordinal));
+
+        Assert.AreEqual(expectedOccurrences, actualOccurrences);
     }
 
     [DataTestMethod]
