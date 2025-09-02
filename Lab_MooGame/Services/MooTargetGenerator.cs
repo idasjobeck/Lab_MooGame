@@ -12,7 +12,6 @@ public class MooTargetGenerator : ITargetGenerator
     private readonly int _targetLength;
     private readonly IRandom _randomNumberGenerator;
     public int TargetLength => _targetLength;
-    public IRandom RandomNumberGenerator => _randomNumberGenerator;
 
     public MooTargetGenerator(int targetLength)
     {
@@ -29,15 +28,14 @@ public class MooTargetGenerator : ITargetGenerator
     public string GenerateTarget()
     {
         var target = "";
+        string randomDigit;
 
         for (int i = 0; i < _targetLength; i++)
         {
-            var randomDigit = RandomNumberGenerator.Next(10).ToString();
-
-            while (target.Contains(randomDigit))
+            do
             {
-                randomDigit = RandomNumberGenerator.Next(10).ToString();
-            }
+                randomDigit = _randomNumberGenerator.Next(10).ToString();
+            } while (target.Contains(randomDigit));
 
             target += randomDigit;
         }
