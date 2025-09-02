@@ -55,7 +55,7 @@ public class MooGame : IGuessingGame
         return guess;
     }
 
-    private bool IsCorrectLength(string guess) => string.IsNullOrEmpty(guess) || guess.Length < _target.Length;
+    private bool IsCorrectLength(string guess) => guess.Length < _target.Length;
 
     private bool IsInTargetAndCorrectPosition(int position, string guess) => _target[position] == guess[position];
 
