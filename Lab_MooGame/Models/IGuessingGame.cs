@@ -9,11 +9,6 @@ public interface IGuessingGame
 
     public void SetUpNewGame();
 
-    private string GenerateTarget()
-    {
-        return ""; // Placeholder for the actual target generation logic
-    }
-
     public string CheckGuess(string? guess);
 
     public bool IsGuessCorrect(string resultToCheck);
