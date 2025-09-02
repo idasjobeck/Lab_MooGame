@@ -39,7 +39,7 @@ public class MockTargetGenerator : ITargetGenerator
 
         for (int i = 0; i < _targetLength; i++)
         {
-            target += "1";
+            target += i%2 == 0 ? "1" : "2";
         }
 
         return target;
