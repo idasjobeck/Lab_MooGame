@@ -8,6 +8,9 @@ namespace Lab_MooGameTests.Models;
 [TestClass]
 public class MooGameTests
 {
+    private const bool AllowRepeats = false;
+    private const int MaxRange = 9;
+
     [DataTestMethod]
     [TestCategory("Unit")]
     [DataRow(4, 9, false, new int[] { 1, 2, 1, 3, 3, 4 }, "1234")]
@@ -70,7 +73,7 @@ public class MooGameTests
     public void CheckGuess_ShouldReturnResultBasedOnUserGuess(int targetLength, string userGuess, string expectedResult)
     {
         // Arrange
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var targetGenerator = new MockTargetGenerator(targetLength, MaxRange, AllowRepeats);
         var mooGame = new MooGame(targetGenerator);
         mooGame.SetUpNewGame();
 
@@ -90,7 +93,7 @@ public class MooGameTests
     public void IsGuessCorrect_ShouldReturnTrue(int targetLength, string resultToCheck)
     {
         // Arrange
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var targetGenerator = new MockTargetGenerator(targetLength, MaxRange, AllowRepeats);
         var mooGame = new MooGame(targetGenerator);
         mooGame.SetUpNewGame();
 
@@ -142,7 +145,7 @@ public class MooGameTests
     public void IsGuessCorrect_ShouldReturnFalse(int targetLength, string resultToCheck)
     {
         // Arrange
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var targetGenerator = new MockTargetGenerator(targetLength, MaxRange, AllowRepeats);
         var mooGame = new MooGame(targetGenerator);
         mooGame.SetUpNewGame();
 
@@ -166,7 +169,8 @@ public class MooGameTests
     public void Target_ShouldThrowInvalidOperationExceptionIfGameNotSetUp()
     {
         // Arrange
-        var targetGenerator = new MockTargetGenerator(4);
+        var targetLength = 4;
+        var targetGenerator = new MockTargetGenerator(targetLength, MaxRange, AllowRepeats);
         var mooGame = new MooGame(targetGenerator);
 
         // Act & Assert
@@ -178,7 +182,8 @@ public class MooGameTests
     public void Name_ShouldGetName()
     {
         // Arrange
-        var targetGenerator = new MockTargetGenerator(4);
+        var targetLength = 4;
+        var targetGenerator = new MockTargetGenerator(targetLength, MaxRange, AllowRepeats);
         var mooGame = new MooGame(targetGenerator);
         var expectedName = "Moo Game";
 
@@ -194,7 +199,8 @@ public class MooGameTests
     public void Description_ShouldGetDescription()
     {
         // Arrange
-        var targetGenerator = new MockTargetGenerator(4);
+        var targetLength = 4;
+        var targetGenerator = new MockTargetGenerator(targetLength, MaxRange, AllowRepeats);
         var mooGame = new MooGame(targetGenerator);
         var expectedDescription = "A game where you guess a 4-digit number with no repeating digits. " +
                                   "You get feedback in the form of 'B' for bulls (correct digit and position) " +

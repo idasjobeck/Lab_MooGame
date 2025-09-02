@@ -83,7 +83,10 @@ public class PlayerStatsTests
     public void Equals_ShouldReturnFalseAsOneObjectIsNotPlayerStats()
     {
         // Arrange
-        var notAPlayerStats = new MockTargetGenerator(4);
+        var targetLength = 4;
+        var maxRange = 9;
+        var allowRepeats = false;
+        var notAPlayerStats = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
 
         // Act
         var areEqual = _playerStats!.Equals(notAPlayerStats);

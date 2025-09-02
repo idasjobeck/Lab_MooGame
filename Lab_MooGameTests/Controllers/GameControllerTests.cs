@@ -10,25 +10,25 @@ public class GameControllerTests
 {
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, "TestUser,1234,n")]
-    [DataRow(4, "TestUser,4321,1234,n")]
-    [DataRow(4, "Ida,1234,y,1234,n")]
-    [DataRow(4, "Ida,2143,1234,y,2134,1234,n")]
-    [DataRow(4, "Bob,12,34,1234,n")]
-    [DataRow(4, "Bob,543216,1234,n")]
-    [DataRow(4, "Bob,4321,1234,b,n")]
-    [DataRow(4,",TestUser2,1234,n")]
-    [DataRow(6, "TestUser,123456,n")]
-    [DataRow(5, "TestUser,54321,12345,n")]
-    [DataRow(3, "Ida,123,y,123,n")]
-    [DataRow(3, "Ida,213,123,y,134,123,n")]
-    [DataRow(6, "Bob,12,34,56,123456,n")]
-    [DataRow(5, "Bob,543216,12345,n")]
-    public void Run_ShouldCompleteGameSuccessfully(int targetLength, string userInputs)
+    [DataRow(4, 9, false, "TestUser,1234,n")]
+    [DataRow(4, 9, false, "TestUser,4321,1234,n")]
+    [DataRow(4, 9, false, "Ida,1234,y,1234,n")]
+    [DataRow(4, 9, false, "Ida,2143,1234,y,2134,1234,n")]
+    [DataRow(4, 9, false, "Bob,12,34,1234,n")]
+    [DataRow(4, 9, false, "Bob,543216,1234,n")]
+    [DataRow(4, 9, false, "Bob,4321,1234,b,n")]
+    [DataRow(4, 9, false, ",TestUser2,1234,n")]
+    [DataRow(6, 9, false, "TestUser,123456,n")]
+    [DataRow(5, 9, false, "TestUser,54321,12345,n")]
+    [DataRow(3, 9, false, "Ida,123,y,123,n")]
+    [DataRow(3, 9, false, "Ida,213,123,y,134,123,n")]
+    [DataRow(6, 9, false, "Bob,12,34,56,123456,n")]
+    [DataRow(5, 9, false, "Bob,543216,12345,n")]
+    public void Run_ShouldCompleteGameSuccessfully(int targetLength, int maxRange, bool allowRepeats, string userInputs)
     {
         // Arrange
         var userInterface = new MockUI(userInputs);
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new TextFileDataStorage("test_highscores.txt"));
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
@@ -47,7 +47,9 @@ public class GameControllerTests
         // Arrange
         var userInterface = new MockUI(",TestUser2,1234,n");
         var targetLength = 4;
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var maxRange = 9;
+        var allowRepeats = false;
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
@@ -74,7 +76,9 @@ public class GameControllerTests
         // Arrange
         var userInterface = new MockUI("TestUser,1234,b,h,n");
         var targetLength = 4;
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var maxRange = 9;
+        var allowRepeats = false;
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
@@ -96,20 +100,20 @@ public class GameControllerTests
 
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, "TestUser,,1234,n")]
-    [DataRow(4, "TestUser,abcd,1234,n")]
-    [DataRow(4, "TestUser,4321,abcd,1234,n")]
-    [DataRow(4, "TestUser,ab12,1234,n")]
-    [DataRow(4, "TestUser,12ab,1234,n")]
-    [DataRow(6, "TestUser,abcd,123456,n")]
-    [DataRow(6, "TestUser,654321,abcd,123456,n")]
-    [DataRow(6, "TestUser,abc123,123456,n")]
-    [DataRow(6, "TestUser,123abc,123456,n")]
-    public void Run_ErrorMessageShouldHaveDisplayedForNonNumericalUserInput(int targetLength, string userInputs)
+    [DataRow(4, 9, false, "TestUser,,1234,n")]
+    [DataRow(4, 9, false, "TestUser,abcd,1234,n")]
+    [DataRow(4, 9, false, "TestUser,4321,abcd,1234,n")]
+    [DataRow(4, 9, false, "TestUser,ab12,1234,n")]
+    [DataRow(4, 9, false, "TestUser,12ab,1234,n")]
+    [DataRow(6, 9, false, "TestUser,abcd,123456,n")]
+    [DataRow(6, 9, false, "TestUser,654321,abcd,123456,n")]
+    [DataRow(6, 9, false, "TestUser,abc123,123456,n")]
+    [DataRow(6, 9, false, "TestUser,123abc,123456,n")]
+    public void Run_ErrorMessageShouldHaveDisplayedForNonNumericalUserInput(int targetLength, int maxRange, bool allowRepeats, string userInputs)
     {
         // Arrange
         var userInterface = new MockUI(userInputs);
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
@@ -123,19 +127,19 @@ public class GameControllerTests
 
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, "TestUser,abcd,1234,n", 1)]
-    [DataRow(4, "TestUser,4321,abcd,1234,n", 2)]
-    [DataRow(4, "TestUser,abc1,2143,4231,ab12,1234,n", 3)]
-    [DataRow(4, "TestUser,4132,12ab,3142,4321,ab12,1234,n", 4)]
-    [DataRow(6, "TestUser,abcd,123456,n", 1)]
-    [DataRow(6, "TestUser,654321,abcd,123456,n", 2)]
-    [DataRow(6, "TestUser,456123,abc123,654321,a12b34,123456,n", 3)]
-    [DataRow(6, "TestUser,123654,123abc,ab1234,142536,654321,123456,n", 4)]
-    public void Run_NonNumericalUserInputForGuessesShouldNotHaveCounted(int targetLength, string userInputs, int expectedNumberOfGuesses)
+    [DataRow(4, 9, false, "TestUser,abcd,1234,n", 1)]
+    [DataRow(4, 9, false, "TestUser,4321,abcd,1234,n", 2)]
+    [DataRow(4, 9, false, "TestUser,abc1,2143,4231,ab12,1234,n", 3)]
+    [DataRow(4, 9, false, "TestUser,4132,12ab,3142,4321,ab12,1234,n", 4)]
+    [DataRow(6, 9, false, "TestUser,abcd,123456,n", 1)]
+    [DataRow(6, 9, false, "TestUser,654321,abcd,123456,n", 2)]
+    [DataRow(6, 9, false, "TestUser,456123,abc123,654321,a12b34,123456,n", 3)]
+    [DataRow(6, 9, false, "TestUser,123654,123abc,ab1234,142536,654321,123456,n", 4)]
+    public void Run_NonNumericalUserInputForGuessesShouldNotHaveCounted(int targetLength, int maxRange, bool allowRepeats, string userInputs, int expectedNumberOfGuesses)
     {
         // Arrange
         var userInterface = new MockUI(userInputs);
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
@@ -149,13 +153,13 @@ public class GameControllerTests
 
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, "TestUser,1234,n")]
-    [DataRow(4, "Ida,1234,y,1234,n")]
-    public void Run_ShouldThrowExceptionWhenTwoRunsAreAccessingHighscoresFileSimultaneously(int targetLength, string userInputs)
+    [DataRow(4, 9, false, "TestUser,1234,n")]
+    [DataRow(4, 9, false, "Ida,1234,y,1234,n")]
+    public void Run_ShouldThrowExceptionWhenTwoRunsAreAccessingHighscoresFileSimultaneously(int targetLength, int maxRange, bool allowRepeats, string userInputs)
     {
         // Arrange
         var userInterface = new MockUI(userInputs);
-        var targetGenerator = new MockTargetGenerator(targetLength);
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new TextFileDataStorage("test_highscores.txt"));
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
@@ -174,7 +178,10 @@ public class GameControllerTests
     {
         // Arrange
         var userInterface = new MockUI("TestUser,1234,n");
-        var targetGenerator = new MockTargetGenerator(4);
+        var targetLength = 4;
+        var maxRange = 9;
+        var allowRepeats = false;
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new MockScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
