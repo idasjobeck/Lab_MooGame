@@ -67,6 +67,33 @@ public class GameControllerTests
         Assert.AreEqual(expectedOccurrences, actualOccurrences);
     }
 
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void Run_ContinueMessageShouldHaveBeenDisplayedMultipleTimes()
+    {
+        // Arrange
+        var userInterface = new MockUI("TestUser,1234,b,h,n");
+        var targetLength = 4;
+        var targetGenerator = new MockTargetGenerator(targetLength);
+        var guessingGame = new MooGame(targetGenerator);
+        var scoreboardService = new ScoreboardService(new MockDataStorage());
+        var gameController = new GameController(userInterface, guessingGame, scoreboardService);
+        var substring = "Continue? (y/n)";
+        var expectedOccurrences = 3;
+
+        // Act
+        gameController.Run();
+
+        // Assert
+        if (string.IsNullOrEmpty(substring) || userInterface.Output.Length < substring.Length)
+            Assert.Fail();
+
+        var actualOccurrences = userInterface.Output.Select((_, i) => userInterface.Output.Substring(i))
+            .Count(s => s.StartsWith(substring, StringComparison.Ordinal));
+
+        Assert.AreEqual(expectedOccurrences, actualOccurrences);
+    }
+
     [DataTestMethod]
     [TestCategory("Unit")]
     [DataRow(4, "TestUser,,1234,n")]
