@@ -6,6 +6,18 @@ namespace Lab_MooGameTests.Services;
 [TestClass]
 public class TargetGeneratorTests
 {
+    private int _targetLength = 5;
+    private int _maxRange = 9;
+    private bool _allowRepeats = false;
+    private TargetGenerator _targetGenerator;
+
+
+    [TestInitialize]
+    public void Setup()
+    {
+        _targetGenerator = new TargetGenerator(_targetLength, _maxRange, _allowRepeats);
+    }
+
     [DataTestMethod]
     [TestCategory("Unit")]
     [DataRow(4, 9, new int[] { 1, 2, 1, 3, 3, 4 }, "1234")]
@@ -57,16 +69,40 @@ public class TargetGeneratorTests
     public void TargetLength_ShouldGetTargetLengthSet()
     {
         // Arrange
-        var targetLength = 5;
-        var maxRange = 9;
-        var allowRepeats = false;
-        var targetGenerator = new TargetGenerator(targetLength, maxRange,allowRepeats);
         var expectedTargetLength = 5;
 
         // Act
-        var actualTargetLength = targetGenerator.TargetLength;
+        var actualTargetLength = _targetGenerator.TargetLength;
 
         // Assert
         Assert.AreEqual(expectedTargetLength, actualTargetLength);
+    }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void MaxRange_ShouldGetMaxRangeSet()
+    {
+        // Arrange
+        var expectedMaxRange = 9;
+
+        // Act
+        var actualMaxRange = _targetGenerator.MaxRange;
+
+        // Assert
+        Assert.AreEqual(expectedMaxRange, actualMaxRange);
+    }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void AllowRepeats_ShouldGetAllowRepeatsSet()
+    {
+        // Arrange
+        var expectedAllowRepeats = false;
+
+        // Act
+        var actualAllowRepeats = _targetGenerator.AllowRepeats;
+
+        // Assert
+        Assert.AreEqual(expectedAllowRepeats, actualAllowRepeats);
     }
 }
