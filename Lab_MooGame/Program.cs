@@ -42,7 +42,7 @@ public class Program
             _ => throw new InvalidEnumArgumentException("Invalid game selection.")
         };
 
-        var highscoreFilePath = $"{gameConfig.Name.Trim()}_highscores.txt";
+        var highscoreFilePath = $"{gameConfig.Name.Trim().Replace(" ", "")}_highscores.txt";
         var dataStorage = new TextFileDataStorage(highscoreFilePath);
         var scoreboardService = new ScoreboardService(dataStorage);
 
