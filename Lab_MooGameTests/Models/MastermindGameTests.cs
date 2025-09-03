@@ -100,11 +100,11 @@ public class MastermindGameTests
     {
         // Arrange
         var targetGenerator = new MockTargetGenerator(targetLength, MaxRange, AllowRepeats);
-        var mooGame = new MooGame(targetGenerator);
-        mooGame.SetUpNewGame();
+        var mastermindGame = new MastermindGame(targetGenerator);
+        mastermindGame.SetUpNewGame();
 
         // Act
-        var isCorrect = mooGame.IsGuessCorrect(resultToCheck);
+        var isCorrect = mastermindGame.IsGuessCorrect(resultToCheck);
 
         // Assert
         Assert.IsFalse(isCorrect);
