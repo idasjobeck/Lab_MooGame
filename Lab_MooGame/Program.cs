@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Lab_MooGame.Controllers;
 using Lab_MooGame.Models;
 using Lab_MooGame.Services;
@@ -8,34 +9,44 @@ using Lab_MooGame.UI;
 
 namespace Lab_MooGame;
 
+public enum GameSelection
+{
+    Exit = 0,
+    MooGame = 1,
+    Mastermind = 2
+}
+
 public class Program
 {
     public static void Main(string[] args)
     {
         var ui = new ConsoleUI();
+        var gameSelectionsAvailable = new Dictionary<GameSelection, GameConfig>()
+        {
+            { GameSelection.MooGame, new GameConfig("Moo Game",4, 9, false) },
+            { GameSelection.Mastermind, new GameConfig("Mastermind", 4, 6, true) }
+        };
 
-        //Moo game setup
-        var mooTargetLength = 4;
-        var mooMaxRange = 9;
-        var mooAllowRepeats = false;
-        var mooTargetGenerator = new TargetGenerator(mooTargetLength, mooMaxRange, mooAllowRepeats);
-        var mooGame = new MooGame(mooTargetGenerator);
-        var mooDataStorage = new TextFileDataStorage("moo_highscores.txt");
-        var mooScoreboardService = new ScoreboardService(mooDataStorage);
+        var gameSelector = new GameSelector(ui, gameSelectionsAvailable);
 
+        var selectedGame = gameSelector.SelectGame();
 
-        //Mastermind setup
-        var mastermindTargetLength = 4;
-        var mastermindMaxRange = 6;
-        var mastermindAllowRepeats = true;
-        var mastermindTargetGenerator = new TargetGenerator(mastermindTargetLength, mastermindMaxRange, mastermindAllowRepeats);
-        var mastermindGame = new MastermindGame(mastermindTargetGenerator);
-        var mastermindDataStorage = new TextFileDataStorage("mastermind_highscores.txt");
-        var mastermindScoreboardService = new ScoreboardService(mastermindDataStorage);
+        if (selectedGame == GameSelection.Exit)
+            return;
 
+        var gameConfig = gameSelectionsAvailable[selectedGame];
+        IGuessingGame game = selectedGame switch
+        {
+            GameSelection.MooGame => new MooGame(gameConfig.TargetGenerator),
+            GameSelection.Mastermind => new MastermindGame(gameConfig.TargetGenerator),
+            _ => throw new InvalidEnumArgumentException("Invalid game selection.")
+        };
 
-        //var gameController = new GameController(ui, mooGame, mooScoreboardService);
-        var gameController = new GameController(ui, mastermindGame, mastermindScoreboardService);
+        var highscoreFilePath = $"{gameConfig.Name.Trim()}_highscores.txt";
+        var dataStorage = new TextFileDataStorage(highscoreFilePath);
+        var scoreboardService = new ScoreboardService(dataStorage);
+
+        var gameController = new GameController(ui, game, scoreboardService);
 
         gameController.Run();
     }
