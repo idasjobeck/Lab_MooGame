@@ -48,4 +48,22 @@ public class GameSelectorTests
         // Assert
         StringAssert.Contains(ui.Output, expectedErrorMessage);
     }
+
+    [DataTestMethod]
+    [TestCategory("Unit")]
+    [DataRow("3,1")]
+    [DataRow("-1,2")]
+    public void SelectGame_ErrorMessageShouldHaveDisplayedForOutOfRangeNumericalUserInput(string userInputs)
+    {
+        // Arrange
+        var ui = new MockUI(userInputs);
+        var gameSelector = new GameSelector(ui, _gameSelectionsAvailable);
+        var expectedErrorMessage = "Invalid choice. Please enter a number corresponding to the options above.";
+
+        // Act
+        gameSelector.SelectGame();
+
+        // Assert
+        StringAssert.Contains(ui.Output, expectedErrorMessage);
+    }
 }
