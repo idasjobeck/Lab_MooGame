@@ -31,4 +31,21 @@ public class GameSelectorTests
         // Assert
         Assert.AreEqual(expectedGameSelection, actualGameSelection);
     }
+
+    [TestMethod]
+    [TestCategory("Unit")]
+    public void SelectGame_ErrorMessageShouldHaveDisplayedForNonNumericalUserInput()
+    {
+        // Arrange
+        var userInputs = "a,1";
+        var ui = new MockUI(userInputs);
+        var gameSelector = new GameSelector(ui, _gameSelectionsAvailable);
+        var expectedErrorMessage = "Invalid input. Please enter a number.";
+
+        // Act
+        gameSelector.SelectGame();
+
+        // Assert
+        StringAssert.Contains(ui.Output, expectedErrorMessage);
+    }
 }
