@@ -6,7 +6,7 @@ namespace Lab_MooGameTests.Mocks;
 public class MockTargetGenerator : ITargetGenerator
 {
     private readonly int _targetLength;
-    public int TargetLength { get; }
+    public int TargetLength => _targetLength;
     private readonly int _maxRange;
     public int MaxRange => _maxRange;
     private readonly bool _allowRepeats;

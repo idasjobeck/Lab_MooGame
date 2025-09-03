@@ -15,13 +15,13 @@ public class GameConfig
     public bool AllowRepeats { get; }
     public ITargetGenerator TargetGenerator { get; }
 
-    public GameConfig(string name, int targetLength, int maxRange, bool allowRepeats, ITargetGenerator targetGenerator)
+    public GameConfig(string name, ITargetGenerator targetGenerator)
     {
         Name = name;
-        TargetLength = targetLength;
-        MaxRange = maxRange;
-        AllowRepeats = allowRepeats;
         TargetGenerator = targetGenerator;
+        TargetLength = targetGenerator.TargetLength;
+        MaxRange = targetGenerator.MaxRange;
+        AllowRepeats = targetGenerator.AllowRepeats;
     }
 
     public GameConfig(string name, int targetLength, int maxRange, bool allowRepeats)
