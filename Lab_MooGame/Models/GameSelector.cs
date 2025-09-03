@@ -25,7 +25,10 @@ public class GameSelector
         var userSelection = MakeSelection();
 
         if (userSelection == 0)
+        {
             UserInterface.Write("Exiting...");
+            return GameSelection.Exit;
+        }
 
         return keys[userSelection - 1];
     }
