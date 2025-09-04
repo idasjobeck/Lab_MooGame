@@ -65,6 +65,35 @@ public class GameControllerTests
 
     [TestMethod]
     [TestCategory("Unit")]
+    public void Run_PracticeModeSelectionShouldHaveBeenRequestedMultipleTimes()
+    {
+        // Arrange
+        var userInterface = new MockUI(",TestUser2,t,y,1234,n");
+        var targetLength = 4;
+        var maxRange = 9;
+        var allowRepeats = false;
+        var targetGenerator = new MockTargetGenerator(targetLength, maxRange, allowRepeats);
+        var guessingGame = new MooGame(targetGenerator);
+        var scoreboardService = new ScoreboardService(new MockDataStorage());
+        var gameController = new GameController(userInterface, guessingGame, scoreboardService);
+        var substring = "\nDo you want to play in Practice Mode, whereby the target is visible? (y/n)";
+        var expectedOccurrences = 2;
+
+        // Act
+        gameController.Run();
+
+        // Assert
+        if (string.IsNullOrEmpty(substring) || userInterface.Output.Length < substring.Length)
+            Assert.Fail();
+
+        var actualOccurrences = userInterface.Output.Select((_, i) => userInterface.Output.Substring(i))
+            .Count(s => s.StartsWith(substring, StringComparison.Ordinal));
+
+        Assert.AreEqual(expectedOccurrences, actualOccurrences);
+    }
+
+    [TestMethod]
+    [TestCategory("Unit")]
     public void Run_ContinueMessageShouldHaveBeenDisplayedMultipleTimes()
     {
         // Arrange
