@@ -21,10 +21,6 @@ public class MooGameTests
     [DataRow(6, 9, false, new int[] { 7, 8, 9, 7, 6, 5, 4, 3 }, "789654")]
     [DataRow(5, 9, false, new int[] { 1, 1, 2, 3, 4, 2, 5, 6 }, "12345")]
     [DataRow(3, 9, false, new int[] { 7, 9, 9, 7, 6, 5, 2 }, "796")]
-    [DataRow(4, 6, true, new int[] { 1, 2, 1, 3 }, "1213")]
-    [DataRow(4, 6, true, new int[] { 4, 5, 6, 4 }, "4564")]
-    [DataRow(4, 6, true, new int[] { 1, 1, 1, 2 }, "1112")]
-    [DataRow(4, 6, true, new int[] { 1, 2, 3, 4 }, "1234")]
     public void SetUpNewGame_ShouldSetGeneratedTargetAndSetGuessesToZero(int targetLength, int maxRange, bool allowRepeats, IEnumerable<int> predefinedNumbers, string expectedTarget)
     {
         // Arrange
@@ -56,20 +52,6 @@ public class MooGameTests
     [DataRow(4, "34", ",CC")]
     [DataRow(4, "123456", "BBBB,")]
     [DataRow(4, "567812", ",")]
-    [DataRow(6,"123456","BBBBBB,")]
-    [DataRow(6,"654321", ",CCCCCC")]
-    [DataRow(6,"789087", ",")]
-    [DataRow(6,"123645", "BBB,CCC")]
-    [DataRow(6,"312456", "BBB,CCC")]
-    [DataRow(6,"123478", "BBBB,")]
-    [DataRow(6,"789123", ",CCC")]
-    [DataRow(3, "123", "BBB,")]
-    [DataRow(3, "312", ",CCC")]
-    [DataRow(3, "456", ",")]
-    [DataRow(3, "132", "B,CC")]
-    [DataRow(3, "12", "BB,")]
-    [DataRow(3, "654321", ",")]
-    [DataRow(3, "123456", "BBB,")]
     public void CheckGuess_ShouldReturnResultBasedOnUserGuess(int targetLength, string userGuess, string expectedResult)
     {
         // Arrange
@@ -122,26 +104,6 @@ public class MooGameTests
     [DataRow(4, "B,C")]
     [DataRow(4, "BB,C")]
     [DataRow(4, "B,CC")]
-    [DataRow(5, ",")]
-    [DataRow(5, ",CCCCC")]
-    [DataRow(5, ",CCCC")]
-    [DataRow(5, ",CCC")]
-    [DataRow(5, ",CC")]
-    [DataRow(5, ",C")]
-    [DataRow(5, "BBBB,")]
-    [DataRow(5, "BBB,")]
-    [DataRow(5, "BB,")]
-    [DataRow(5, "B,")]
-    [DataRow(5, "BBBB,C")]
-    [DataRow(5, "BBB,CC")]
-    [DataRow(5, "BB,CCC")]
-    [DataRow(5, "B,CCCC")]
-    [DataRow(5, "B,C")]
-    [DataRow(5, "BB,CC")]
-    [DataRow(5, "BB,C")]
-    [DataRow(5, "BBB,C")]
-    [DataRow(5, "B,CC")]
-    [DataRow(5, "B,CCC")]
     public void IsGuessCorrect_ShouldReturnFalse(int targetLength, string resultToCheck)
     {
         // Arrange

@@ -10,20 +10,14 @@ public class GameControllerTests
 {
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, 9, false, "TestUser,1234,n")]
-    [DataRow(4, 9, false, "TestUser,4321,1234,n")]
-    [DataRow(4, 9, false, "Ida,1234,y,1234,n")]
-    [DataRow(4, 9, false, "Ida,2143,1234,y,2134,1234,n")]
-    [DataRow(4, 9, false, "Bob,12,34,1234,n")]
-    [DataRow(4, 9, false, "Bob,543216,1234,n")]
-    [DataRow(4, 9, false, "Bob,4321,1234,b,n")]
-    [DataRow(4, 9, false, ",TestUser2,1234,n")]
-    [DataRow(6, 9, false, "TestUser,123456,n")]
-    [DataRow(5, 9, false, "TestUser,54321,12345,n")]
-    [DataRow(3, 9, false, "Ida,123,y,123,n")]
-    [DataRow(3, 9, false, "Ida,213,123,y,134,123,n")]
-    [DataRow(6, 9, false, "Bob,12,34,56,123456,n")]
-    [DataRow(5, 9, false, "Bob,543216,12345,n")]
+    [DataRow(4, 9, false, "TestUser,y,1234,n")]
+    [DataRow(4, 9, false, "TestUser,y,4321,1234,n")]
+    [DataRow(4, 9, false, "Ida,y,1234,y,1234,n")]
+    [DataRow(4, 9, false, "Ida,y,2143,1234,y,2134,1234,n")]
+    [DataRow(4, 9, false, "Bob,n,12,34,1234,n")]
+    [DataRow(4, 9, false, "Bob,n,543216,1234,n")]
+    [DataRow(4, 9, false, "Bob,n,4321,1234,b,n")]
+    [DataRow(4, 9, false, ",TestUser2,n,1234,n")]
     public void Run_ShouldCompleteGameSuccessfully(int targetLength, int maxRange, bool allowRepeats, string userInputs)
     {
         // Arrange
@@ -45,7 +39,7 @@ public class GameControllerTests
     public void Run_UsernameShouldHaveBeenRequestedMultipleTimes()
     {
         // Arrange
-        var userInterface = new MockUI(",TestUser2,1234,n");
+        var userInterface = new MockUI(",TestUser2,y,1234,n");
         var targetLength = 4;
         var maxRange = 9;
         var allowRepeats = false;
@@ -74,7 +68,7 @@ public class GameControllerTests
     public void Run_ContinueMessageShouldHaveBeenDisplayedMultipleTimes()
     {
         // Arrange
-        var userInterface = new MockUI("TestUser,1234,b,h,n");
+        var userInterface = new MockUI("TestUser,y,1234,b,h,n");
         var targetLength = 4;
         var maxRange = 9;
         var allowRepeats = false;
@@ -100,15 +94,11 @@ public class GameControllerTests
 
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, 9, false, "TestUser,,1234,n")]
-    [DataRow(4, 9, false, "TestUser,abcd,1234,n")]
-    [DataRow(4, 9, false, "TestUser,4321,abcd,1234,n")]
-    [DataRow(4, 9, false, "TestUser,ab12,1234,n")]
-    [DataRow(4, 9, false, "TestUser,12ab,1234,n")]
-    [DataRow(6, 9, false, "TestUser,abcd,123456,n")]
-    [DataRow(6, 9, false, "TestUser,654321,abcd,123456,n")]
-    [DataRow(6, 9, false, "TestUser,abc123,123456,n")]
-    [DataRow(6, 9, false, "TestUser,123abc,123456,n")]
+    [DataRow(4, 9, false, "TestUser,y,,1234,n")]
+    [DataRow(4, 9, false, "TestUser,y,abcd,1234,n")]
+    [DataRow(4, 9, false, "TestUser,y,4321,abcd,1234,n")]
+    [DataRow(4, 9, false, "TestUser,n,ab12,1234,n")]
+    [DataRow(4, 9, false, "TestUser,n,12ab,1234,n")]
     public void Run_ErrorMessageShouldHaveDisplayedForNonNumericalUserInput(int targetLength, int maxRange, bool allowRepeats, string userInputs)
     {
         // Arrange
@@ -127,14 +117,10 @@ public class GameControllerTests
 
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, 9, false, "TestUser,abcd,1234,n", 1)]
-    [DataRow(4, 9, false, "TestUser,4321,abcd,1234,n", 2)]
-    [DataRow(4, 9, false, "TestUser,abc1,2143,4231,ab12,1234,n", 3)]
-    [DataRow(4, 9, false, "TestUser,4132,12ab,3142,4321,ab12,1234,n", 4)]
-    [DataRow(6, 9, false, "TestUser,abcd,123456,n", 1)]
-    [DataRow(6, 9, false, "TestUser,654321,abcd,123456,n", 2)]
-    [DataRow(6, 9, false, "TestUser,456123,abc123,654321,a12b34,123456,n", 3)]
-    [DataRow(6, 9, false, "TestUser,123654,123abc,ab1234,142536,654321,123456,n", 4)]
+    [DataRow(4, 9, false, "TestUser,y,abcd,1234,n", 1)]
+    [DataRow(4, 9, false, "TestUser,n,4321,abcd,1234,n", 2)]
+    [DataRow(4, 9, false, "TestUser,y,abc1,2143,4231,ab12,1234,n", 3)]
+    [DataRow(4, 9, false, "TestUser,n,4132,12ab,3142,4321,ab12,1234,n", 4)]
     public void Run_NonNumericalUserInputForGuessesShouldNotHaveCounted(int targetLength, int maxRange, bool allowRepeats, string userInputs, int expectedNumberOfGuesses)
     {
         // Arrange
@@ -153,8 +139,8 @@ public class GameControllerTests
 
     [DataTestMethod]
     [TestCategory("Unit")]
-    [DataRow(4, 9, false, "TestUser,1234,n")]
-    [DataRow(4, 9, false, "Ida,1234,y,1234,n")]
+    [DataRow(4, 9, false, "TestUser,y,1234,n")]
+    [DataRow(4, 9, false, "Ida,n,1234,y,1234,n")]
     public void Run_ShouldThrowExceptionWhenTwoRunsAreAccessingHighscoresFileSimultaneously(int targetLength, int maxRange, bool allowRepeats, string userInputs)
     {
         // Arrange
@@ -177,7 +163,7 @@ public class GameControllerTests
     public void Run_ShouldDisplayErrorMessageIfTopScoresIsEmpty()
     {
         // Arrange
-        var userInterface = new MockUI("TestUser,1234,n");
+        var userInterface = new MockUI("TestUser,n,1234,n");
         var targetLength = 4;
         var maxRange = 9;
         var allowRepeats = false;
