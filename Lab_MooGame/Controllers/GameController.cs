@@ -21,6 +21,7 @@ public class GameController
 
     public void Run()
     {
+        DisplayGameInformation();
         RequestUsername();
 
         do
@@ -38,16 +39,22 @@ public class GameController
 
         do
         {
-            _userInterface.Write("Enter your user name:\n");
+            _userInterface.Write("Enter your user name:");
             userName = _userInterface.Read();
         } while (string.IsNullOrEmpty(userName));
 
         _currentGameUserScore.UserName = userName;
     }
 
+    private void DisplayGameInformation()
+    {
+        _userInterface.Write($"\n{_guessingGame.Name}");
+        _userInterface.Write($"{_guessingGame.Description}\n");
+    }
+
     private void DisplayInstructions()
     {
-        _userInterface.Write("New game:\n");
+        _userInterface.Write("\nNew game:\n");
         
         if (IsPracticeMode)
             _userInterface.Write($"For practice, number is: {_guessingGame.Target} \n");

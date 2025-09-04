@@ -53,7 +53,7 @@ public class GameControllerTests
         var guessingGame = new MooGame(targetGenerator);
         var scoreboardService = new ScoreboardService(new MockDataStorage());
         var gameController = new GameController(userInterface, guessingGame, scoreboardService);
-        var substring = "Enter your user name:\n";
+        var substring = "Enter your user name:";
         var expectedOccurrences = 2;
 
         // Act
