@@ -2,6 +2,7 @@
 
 public interface IUserInterface
 {
-    void Write(string message);
-    string? Read();
+    public void Write(string message);
+    public string? Read();
+    public void Clear();
 }

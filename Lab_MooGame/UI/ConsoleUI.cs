@@ -11,4 +11,9 @@ public class ConsoleUI : IUserInterface
     {
         return Console.ReadLine();
     }
+
+    public void Clear()
+    {
+        Console.Clear();
+    }
 }

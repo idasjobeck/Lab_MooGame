@@ -27,4 +27,9 @@ public class MockUI : IUserInterface
     }
 
     public string Output => string.Join(",", OutputMessages);
+
+    public void Clear()
+    {
+        OutputMessages.Clear();
+    }
 }
