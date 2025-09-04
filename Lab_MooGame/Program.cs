@@ -28,26 +28,30 @@ public class Program
         };
 
         var gameSelector = new GameSelector(ui, gameSelectionsAvailable);
+        GameSelection selectedGame;
 
-        var selectedGame = gameSelector.SelectGame();
-
-        if (selectedGame == GameSelection.Exit)
-            return;
-
-        var gameConfig = gameSelectionsAvailable[selectedGame];
-        IGuessingGame game = selectedGame switch
+        do
         {
-            GameSelection.MooGame => new MooGame(gameConfig.TargetGenerator),
-            GameSelection.Mastermind => new MastermindGame(gameConfig.TargetGenerator),
-            _ => throw new InvalidEnumArgumentException("Invalid game selection.")
-        };
+            selectedGame = gameSelector.SelectGame();
 
-        var highscoreFilePath = $"{gameConfig.Name.Trim().Replace(" ", "")}_highscores.txt";
-        var dataStorage = new TextFileDataStorage(highscoreFilePath);
-        var scoreboardService = new ScoreboardService(dataStorage);
+            if (selectedGame == GameSelection.Exit)
+                return;
 
-        var gameController = new GameController(ui, game, scoreboardService);
+            var gameConfig = gameSelectionsAvailable[selectedGame];
+            IGuessingGame game = selectedGame switch
+            {
+                GameSelection.MooGame => new MooGame(gameConfig.TargetGenerator),
+                GameSelection.Mastermind => new MastermindGame(gameConfig.TargetGenerator),
+                _ => throw new InvalidEnumArgumentException("Invalid game selection.")
+            };
 
-        gameController.Run();
+            var highscoreFilePath = $"{gameConfig.Name.Trim().Replace(" ", "")}_highscores.txt";
+            var dataStorage = new TextFileDataStorage(highscoreFilePath);
+            var scoreboardService = new ScoreboardService(dataStorage);
+
+            var gameController = new GameController(ui, game, scoreboardService);
+
+            gameController.Run();
+        } while (true);
     }
 }

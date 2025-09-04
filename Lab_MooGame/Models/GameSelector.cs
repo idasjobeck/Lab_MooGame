@@ -26,7 +26,7 @@ public class GameSelector
 
         if (userSelection == 0)
         {
-            UserInterface.Write("Exiting...");
+            UserInterface.Write("\nExiting...");
             return GameSelection.Exit;
         }
 
@@ -35,6 +35,7 @@ public class GameSelector
 
     private void DisplayGameSelections()
     {
+        UserInterface.Clear();
         UserInterface.Write("Select which game to play.\n");
 
         var keys = Games.Keys.ToList();
