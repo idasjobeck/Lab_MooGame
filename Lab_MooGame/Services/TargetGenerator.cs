@@ -12,6 +12,7 @@ public class TargetGenerator : ITargetGenerator
     private readonly IRandom _randomNumberGenerator;
     private readonly int _targetLength;
     public int TargetLength => _targetLength;
+    private const int MinRange = 1;
     private readonly int _maxRange;
     public int MaxRange => _maxRange;
     private readonly bool _allowRepeats;
@@ -49,13 +50,13 @@ public class TargetGenerator : ITargetGenerator
     {
         var target = "";
         string randomDigit;
-        var maxValue = _maxRange + 1; // Adjust for inclusive upper bound
+        var maxValue = _maxRange + 1; // Adjust for exclusive upper bound
 
         for (int i = 0; i < _targetLength; i++)
         {
             do
             {
-                randomDigit = _randomNumberGenerator.Next(maxValue).ToString();
+                randomDigit = _randomNumberGenerator.Next(MinRange, maxValue).ToString();
             } while (target.Contains(randomDigit));
 
             target += randomDigit;
@@ -67,11 +68,11 @@ public class TargetGenerator : ITargetGenerator
     private string GenerateTargetRepeatsAllowed()
     {
         var target = "";
-        var maxValue = _maxRange + 1; // Adjust for inclusive upper bound
+        var maxValue = _maxRange + 1; // Adjust for exclusive upper bound
 
         for (int i = 0; i < _targetLength; i++)
         {
-            target += _randomNumberGenerator.Next(maxValue).ToString();
+            target += _randomNumberGenerator.Next(MinRange, maxValue).ToString();
         }
         return target;
     }

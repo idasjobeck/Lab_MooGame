@@ -9,4 +9,6 @@ namespace Lab_MooGame.Models;
 public interface IRandom
 {
     public int Next(int maxValue);
+    public int Next(int minValue, int maxValue);
+    public int Next();
 }
