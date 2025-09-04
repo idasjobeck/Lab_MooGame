@@ -9,7 +9,7 @@ public class GameController
     private readonly IUserInterface _userInterface;
     private readonly IGuessingGame _guessingGame;
     private readonly IScoreboard _scoreboardService;
-    private const bool IsPracticeMode = true; // Set to false for real games
+    private bool _isPracticeMode = true; // Set to false for real games
     private CurrentGameUserScore _currentGameUserScore = new();
 
     public GameController(IUserInterface userInterface, IGuessingGame guessingGame, IScoreboard scoreboardService)
@@ -23,6 +23,7 @@ public class GameController
     {
         DisplayGameInformation();
         RequestUsername();
+        RequestPracticeModeSelection();
 
         do
         {
@@ -46,6 +47,21 @@ public class GameController
         _currentGameUserScore.UserName = userName;
     }
 
+    private void RequestPracticeModeSelection()
+    {
+        do
+        {
+            _userInterface.Write("\nDo you want to play in Practice Mode, whereby the target is visible? (y/n)");
+            string? answer = _userInterface.Read()?.ToLower();
+
+            if (answer == "y" || answer == "n")
+            {
+                _isPracticeMode = answer == "y";
+                return;
+            }
+        } while (true);
+    }
+
     private void DisplayGameInformation()
     {
         _userInterface.Write($"\n{_guessingGame.Name}");
@@ -56,7 +72,7 @@ public class GameController
     {
         _userInterface.Write("\nNew game:\n");
         
-        if (IsPracticeMode)
+        if (_isPracticeMode)
             _userInterface.Write($"For practice, number is: {_guessingGame.Target} \n");
     }
 
