@@ -7,6 +7,15 @@ using Lab_MooGame.Models;
 
 namespace Lab_MooGame.Services;
 
+/// <summary>
+/// Generates random numeric targets based on specified constraints, such as length, range, and whether repeats are
+/// allowed.
+/// </summary>
+/// <remarks>This class provides functionality to generate random numeric strings of a specified length, within a
+/// given range,  and with optional control over whether digits can repeat. It supports dependency injection of a custom
+/// random number  generator via the <see cref="IRandom"/> interface, or defaults to using a system-provided random
+/// number generator.</remarks>
+
 public class TargetGenerator : ITargetGenerator
 {
     private readonly IRandom _randomNumberGenerator;

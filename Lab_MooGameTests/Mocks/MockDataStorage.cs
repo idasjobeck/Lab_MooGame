@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace Lab_MooGameTests.Mocks;
 
+/// <summary>
+/// Provides a mock implementation of the <see cref="IDataStorage"/> interface for testing purposes.
+/// </summary>
+/// <remarks>This class simulates a data storage mechanism using an in-memory list of strings. It is intended for
+/// use in  scenarios where a lightweight, non-persistent storage solution is sufficient, such as unit
+/// testing.</remarks>
+
 public class MockDataStorage : IDataStorage
 {
     private List<string> _dataStorage;

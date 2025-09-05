@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 using Lab_MooGame.UI;
 
 namespace Lab_MooGame.Models;
+
+/// <summary>
+/// Provides functionality for selecting a game from a predefined list of available games.
+/// </summary>
+/// <remarks>This class allows users to interact with a user interface to select a game from a collection of
+/// available games. The selection process includes displaying the list of games, prompting the user for input, and
+/// returning the selected game.</remarks>
+
 public class GameSelector
 {
     public IUserInterface UserInterface { get; }

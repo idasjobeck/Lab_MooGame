@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 using Lab_MooGame.Services;
 
 namespace Lab_MooGame.Models;
+
+/// <summary>
+/// Represents a Mastermind-style guessing game where the player attempts to guess a 4-digit target number.
+/// </summary>
+/// <remarks>The target number consists of 4 digits, each in the range 1-6, and digits may repeat.  After each
+/// guess, the game provides feedback in the form of: <list type="bullet"> <item><term>'B'</term>: Indicates a correct
+/// digit in the correct position.</item> <item><term>'W'</term>: Indicates a correct digit in the wrong
+/// position.</item> </list> The game tracks the number of guesses made and determines whether the player's guess
+/// matches the target.</remarks>
+
 public class MastermindGame : IGuessingGame
 {
     public string Name => "Mastermind Game";

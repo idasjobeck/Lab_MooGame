@@ -3,6 +3,15 @@ using Lab_MooGame.UI;
 
 namespace Lab_MooGame.Models;
 
+/// <summary>
+/// Represents the Moo Game, a number-guessing game where players attempt to guess a 4-digit number with no repeating
+/// digits. Feedback is provided in the form of "B" for bulls (correct digit and position) and "C" for cows (correct
+/// digit but wrong position).
+/// </summary>
+/// <remarks>The game generates a random 4-digit target number with no repeating digits at the start of each game.
+/// Players make guesses, and the game provides feedback on the number of bulls and cows in the guess. The game ends
+/// when the player guesses the target number correctly.</remarks>
+
 public class MooGame : IGuessingGame
 {
     public string Name => "Moo Game";

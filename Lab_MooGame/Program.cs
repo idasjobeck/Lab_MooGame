@@ -16,6 +16,13 @@ public enum GameSelection
     Mastermind = 2
 }
 
+/// <summary>
+/// Represents the entry point of the application, which allows the user to select and play different guessing games.
+/// </summary>
+/// <remarks>The application provides a menu for selecting a game, initializes the selected game's configuration,
+/// and manages the game loop. Currently, the supported games are "Moo Game" and "Mastermind". The user can also exit
+/// the application from the menu.</remarks>
+
 public class Program
 {
     public static void Main(string[] args)

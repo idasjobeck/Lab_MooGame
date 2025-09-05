@@ -4,6 +4,15 @@ using Lab_MooGame.UI;
 
 namespace Lab_MooGame.Controllers;
 
+/// <summary>
+/// Manages the flow of a guessing game, including user interaction, game setup, and score tracking.
+/// </summary>
+/// <remarks>The <see cref="GameController"/> class coordinates the main gameplay loop, including displaying game
+/// information,  handling user input, managing practice mode, and updating the scoreboard. It relies on injected
+/// dependencies  for user interface interactions, game logic, and scoreboard management.  This class is designed to be
+/// the entry point for running the game. It ensures that the game progresses  through its various stages, such as
+/// setting up a new game, processing user guesses, and displaying results.</remarks>
+
 public class GameController
 {
     private readonly IUserInterface _userInterface;

@@ -7,6 +7,12 @@ using Lab_MooGame.Models;
 
 namespace Lab_MooGame.Services;
 
+/// <summary>
+/// Provides functionality for managing and retrieving player scores in a game.
+/// </summary>
+/// <remarks>This service interacts with an underlying data storage mechanism to save and retrieve player scores.
+/// It supports updating the scoreboard with new scores and retrieving a sorted list of top player statistics.</remarks>
+
 public class ScoreboardService : IScoreboard
 {
     private readonly IDataStorage _dataStorage;

@@ -7,6 +7,13 @@ using Lab_MooGame.Models;
 
 namespace Lab_MooGameTests.Mocks;
 
+/// <summary>
+/// Provides a mock implementation of the <see cref="IRandom"/> interface that generates predefined random numbers.
+/// </summary>
+/// <remarks>This class is useful for testing scenarios where deterministic random number generation is required.
+/// The sequence of random numbers is defined by a queue of integers provided at construction time. If the queue is
+/// exhausted, an <see cref="InvalidOperationException"/> is thrown.</remarks>
+
 public class MockRandom : IRandom
 {
     private readonly Queue<int> _predefinedValues;

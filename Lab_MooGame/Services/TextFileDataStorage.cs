@@ -8,6 +8,12 @@ using Lab_MooGame.Models;
 
 namespace Lab_MooGame.Services;
 
+/// <summary>
+/// Provides functionality for storing and retrieving game user scores in a text file.
+/// </summary>
+/// <remarks>This class implements the <see cref="IDataStorage"/> interface and uses a text file to persist data.
+/// It supports appending new user scores to the file and retrieving all stored data as a list of strings.</remarks>
+
 public class TextFileDataStorage : IDataStorage
 {
     private string _filePath;

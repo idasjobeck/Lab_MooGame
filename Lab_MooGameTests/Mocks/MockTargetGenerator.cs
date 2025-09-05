@@ -3,6 +3,14 @@ using Lab_MooGame.Services;
 
 namespace Lab_MooGameTests.Mocks;
 
+/// <summary>
+/// Provides a mock implementation of the <see cref="ITargetGenerator"/> interface for generating predefined target
+/// strings based on specified parameters.
+/// </summary>
+/// <remarks>This class is primarily intended for testing or demonstration purposes. It generates target strings
+/// using a fixed pattern, either allowing or disallowing repeated characters, depending on the configuration. The
+/// generated targets do not rely on randomness, even though the interface requires a random number generator.</remarks>
+
 public class MockTargetGenerator : ITargetGenerator
 {
     private readonly int _targetLength;
